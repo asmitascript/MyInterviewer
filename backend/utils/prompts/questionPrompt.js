@@ -2,6 +2,7 @@ export const questionPrompt = ({
   role,
   experience,
   difficulty,
+  iterviewType,
   previousQuestions = [],
 }) => `
 You are an experienced technical interviewer.
@@ -15,6 +16,8 @@ Role: ${role}
 Experience Level: ${experience}
 
 Difficulty: ${difficulty}
+
+Interview Type: ${iterviewType}
 
 Previously Asked Questions:
 
