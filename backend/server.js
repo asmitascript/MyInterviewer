@@ -1,6 +1,11 @@
+import dns from "node:dns";
+
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
+
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import mongoose from "mongoose";
 
 import interviewRoutes from "./routes/interviewRoutes.js";
 
@@ -15,7 +20,7 @@ app.use(express.json());
 // Routes
 app.use("/api/interview", interviewRoutes);
 
-// Health check
+// Health Check
 app.get("/", (req, res) => {
   res.json({
     success: true,
@@ -25,6 +30,17 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
-});
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("Connected with DB");
+  } catch (err) {
+    console.error("Failed to connect with DB", err);
+    process.exit(1);
+  }
+};
+
+  app.listen(PORT, () => {
+    connectDB();
+    console.log(`Server is listening on port ${PORT}`);
+  });
