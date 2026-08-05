@@ -2,28 +2,59 @@ import mongoose from "mongoose";
 
 const analysisSchema = new mongoose.Schema(
   {
-    score: Number,
-    grammarScore: Number,
-    communicationScore: Number,
-    clarityScore: Number,
+    score: {
+      type: Number,
+      min: 0,
+      max: 10,
+    },
 
     relevance: {
       type: String,
       enum: ["High", "Medium", "Low"],
     },
 
-    needsFollowUp: Boolean,
+    grammarScore: {
+      type: Number,
+      min: 0,
+      max: 10,
+    },
 
-    missingPoints: [String],
+    communicationScore: {
+      type: Number,
+      min: 0,
+      max: 10,
+    },
 
-    remarks: String,
+    clarityScore: {
+      type: Number,
+      min: 0,
+      max: 10,
+    },
+
+    needsFollowUp: {
+      type: Boolean,
+      default: false,
+    },
+
+    missingPoints: [
+      {
+        type: String,
+      },
+    ],
+
+    remarks: {
+      type: String,
+    },
   },
   { _id: false }
 );
 
 const responseSchema = new mongoose.Schema(
   {
-    order: Number,
+    order: {
+      type: Number,
+      required: true,
+    },
 
     question: {
       type: String,
@@ -43,7 +74,8 @@ const responseSchema = new mongoose.Schema(
 
     analysis: analysisSchema,
   },
-  { _id: false }
+  { timestamps: true, _id: false }
 );
+
 
 export default responseSchema;
