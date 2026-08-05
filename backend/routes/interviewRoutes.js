@@ -3,6 +3,13 @@ import { getFeedback } from "../controllers/interviewController.js";
 
 const router = express.Router();
 
-router.post("/feedback", getFeedback);
+// start interview
+router.route("/interview")
+
+// submit answer
+router.post("/answer");
+
+// terminate the interview
+router.post("/end");
 
 export default router;

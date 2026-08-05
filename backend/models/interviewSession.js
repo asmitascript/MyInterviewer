@@ -41,6 +41,34 @@ const finalFeedbackSchema = new mongoose.Schema(
 
 const interviewSessionSchema = new mongoose.Schema(
   {
+    userId: {
+      type: String,
+      required: true,
+    },
+
+    role: {
+      type: String,
+      required: true
+    },
+
+    experience:{
+      type: String,
+      enum: ["fresher", "junior", "mid", "senior"],
+      required: true
+    },
+
+    difficulty: {
+      type: String,
+      enum: ["easy", "medium", "hard"],
+      required: true
+    },
+
+    interviewType: {
+      type: String,
+      enum: ["Technical", "HR", "Behavioral"],
+      required: true
+    },
+
     status: {
       type: String,
       enum: ["Ongoing", "Completed", "Terminated"],

@@ -6,6 +6,11 @@ const router = express.Router();
 router.post("/test", async (req, res) => {
     try {
         const interview = new InterviewSession({
+            userId: "abc123",
+            role: "MERN",
+            experience: "fresher",
+            difficulty: "easy",
+            interviewType: "Technical",
             status: "Terminated",
             currentQuestionIndex: 4,
         });

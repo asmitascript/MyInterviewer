@@ -29,17 +29,16 @@ Then decide whether another follow-up question is required.
 Return ONLY valid JSON.
 
 {
-  "score":0,
+  "overallScore":0,
   "technicalScore":0,
   "grammarScore":0,
   "communicationScore":0,
   "clarityScore":0,
-  "confidenceScore":0,
   "relevance":"High | Medium | Low",
   "missingPoints":[
   ],
   "needsFollowUp":true,
-  "reason":"..."
+  "analysisSummary": "..." 
 }
 
 Rules:

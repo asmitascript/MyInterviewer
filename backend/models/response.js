@@ -8,9 +8,10 @@ const analysisSchema = new mongoose.Schema(
       max: 10,
     },
 
-    relevance: {
-      type: String,
-      enum: ["High", "Medium", "Low"],
+    technicalScore: {
+      type: Number,
+      min: 0,
+      max: 10,
     },
 
     grammarScore: {
@@ -31,9 +32,9 @@ const analysisSchema = new mongoose.Schema(
       max: 10,
     },
 
-    needsFollowUp: {
-      type: Boolean,
-      default: false,
+    relevance: {
+      type: String,
+      enum: ["High", "Medium", "Low"],
     },
 
     missingPoints: [
@@ -42,7 +43,12 @@ const analysisSchema = new mongoose.Schema(
       },
     ],
 
-    remarks: {
+    needsFollowUp: {
+      type: Boolean,
+      default: false,
+    },
+
+    analysisSummary: {
       type: String,
     },
   },
