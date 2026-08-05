@@ -1,42 +1,57 @@
 import mongoose from "mongoose";
 import responseSchema from "./response.js";
 
-
 const finalFeedbackSchema = new mongoose.Schema(
   {
     overallScore: {
-        type: Number,
-        min: 0,
-        max: 10
+      type: Number,
+      min: 0,
+      max: 10,
     },
 
     technicalScore: {
-        type: Number,
-        min: 0,
-        max: 10
+      type: Number,
+      min: 0,
+      max: 10,
     },
 
     communicationScore: {
-        type: Number,
-        min: 0,
-        max: 10
+      type: Number,
+      min: 0,
+      max: 10,
     },
 
     grammarScore: {
-        type: Number,
-        min: 0,
-        max: 10
+      type: Number,
+      min: 0,
+      max: 10,
     },
 
-    strengths: [String],
+    strengths: [
+      {
+        type: String,
+      },
+    ],
 
-    improvements: [String],
+    improvements: [
+      {
+        type: String,
+      },
+    ],
 
-    summary: String,
+    summary: {
+      type: String,
+    },
 
-    suggestedPreparation: [String],
+    suggestedPreparation: [
+      {
+        type: String,
+      },
+    ],
   },
-  { _id: false }
+  {
+    _id: false,
+  }
 );
 
 const interviewSessionSchema = new mongoose.Schema(
@@ -48,25 +63,25 @@ const interviewSessionSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      required: true
+      required: true,
     },
 
-    experience:{
+    experience: {
       type: String,
       enum: ["fresher", "junior", "mid", "senior"],
-      required: true
+      required: true,
     },
 
     difficulty: {
       type: String,
       enum: ["easy", "medium", "hard"],
-      required: true
+      required: true,
     },
 
     interviewType: {
       type: String,
       enum: ["Technical", "HR", "Behavioral"],
-      required: true
+      required: true,
     },
 
     status: {
@@ -75,9 +90,9 @@ const interviewSessionSchema = new mongoose.Schema(
       default: "Ongoing",
     },
 
-    currentQuestionIndex: {
-    type: Number,
-    default: 0,
+    currentQuestionNumber: {
+      type: Number,
+      default: 1,
     },
 
     maxQuestions: {
@@ -86,25 +101,28 @@ const interviewSessionSchema = new mongoose.Schema(
     },
 
     responses: {
-        type: [responseSchema],
-        default: [],
+      type: [responseSchema],
+      default: [],
     },
 
-    finalFeedback: finalFeedbackSchema,
+    finalFeedback: {
+      type: finalFeedbackSchema,
+      default: null,
+    },
 
     startedAt: {
       type: Date,
       default: Date.now,
     },
 
-    endedAt: Date,
+    endedAt: {
+      type: Date,
+      default: null,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-export default mongoose.model(
-  "InterviewSession",
-  interviewSessionSchema
-);
+export default mongoose.model("InterviewSession", interviewSessionSchema);

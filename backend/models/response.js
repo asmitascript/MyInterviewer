@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const analysisSchema = new mongoose.Schema(
   {
-    score: {
+    overallScore: {
       type: Number,
       min: 0,
       max: 10,
@@ -14,13 +14,13 @@ const analysisSchema = new mongoose.Schema(
       max: 10,
     },
 
-    grammarScore: {
+    communicationScore: {
       type: Number,
       min: 0,
       max: 10,
     },
 
-    communicationScore: {
+    grammarScore: {
       type: Number,
       min: 0,
       max: 10,
@@ -37,6 +37,18 @@ const analysisSchema = new mongoose.Schema(
       enum: ["High", "Medium", "Low"],
     },
 
+    strengths: [
+      {
+        type: String,
+      },
+    ],
+
+    weaknesses: [
+      {
+        type: String,
+      },
+    ],
+
     missingPoints: [
       {
         type: String,
@@ -48,11 +60,13 @@ const analysisSchema = new mongoose.Schema(
       default: false,
     },
 
-    analysisSummary: {
+    summary: {
       type: String,
     },
   },
-  { _id: false }
+  {
+    _id: false,
+  }
 );
 
 const responseSchema = new mongoose.Schema(
@@ -69,7 +83,7 @@ const responseSchema = new mongoose.Schema(
 
     answer: {
       type: String,
-      required: true,
+      default: "",
     },
 
     questionType: {
@@ -78,10 +92,15 @@ const responseSchema = new mongoose.Schema(
       default: "Normal",
     },
 
-    analysis: analysisSchema,
+    analysis: {
+      type: analysisSchema,
+      default: null,
+    },
   },
-  { timestamps: true, _id: false }
+  {
+    _id: false,
+    timestamps: true,
+  }
 );
-
 
 export default responseSchema;

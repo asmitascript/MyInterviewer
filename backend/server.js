@@ -22,7 +22,7 @@ app.use(express.json());
 // Routes
 app.use("/api/interview", interviewRoutes);
 
-app.use("/api", testRoutes);
+// app.use("/api", testRoutes);
 
 // Health Check
 app.get("/", (req, res) => {

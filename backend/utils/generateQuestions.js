@@ -1,5 +1,7 @@
-import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
+import { GoogleGenAI } from "@google/genai";
+
+import { questionPrompt } from "./prompts/questionPrompt.js";
 
 dotenv.config();
 
@@ -7,40 +9,38 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
-export async function generateFeedback(question, answer) {
+const generateQuestion = async ({
+  role,
+  experience,
+  difficulty,
+  interviewType,
+  previousQuestions = [],
+}) => {
+  try {
+    const prompt = questionPrompt({
+      role,
+      experience,
+      difficulty,
+      interviewType,
+      previousQuestions,
+    });
 
-const prompt = `
-You are an experienced technical interviewer.
+    const response = await ai.models.generateContent({
+      model: "gemini-3.5-flash-lite",
+      contents: prompt,
+    });
 
-Interview Question:
-${question}
+    const text = response.text
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .trim();
 
-Candidate Answer:
-${answer}
+    return JSON.parse(text);
+  } catch (err) {
+    console.error("Generate Question Error:", err);
 
-Analyze the answer and return ONLY valid JSON.
+    throw new Error("Failed to generate interview question.");
+  }
+};
 
-Format:
-{
-  "overallScore": 0,
-  "communication": 0,
-  "technicalKnowledge": 0,
-  "clarity": 0,
-  "strengths": [],
-  "weaknesses": [],
-  "suggestions": "",
-  "improvedAnswer": ""
-}
-
-Do not include markdown or extra text.
-
-Return the response in JSON.
-`;
-
-  const response = await ai.models.generateContent({
-    model: "gemini-3.6-flash",
-    contents: prompt,
-  });
-
-  return response.text;
-}
+export default generateQuestion;
