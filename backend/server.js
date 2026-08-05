@@ -9,6 +9,8 @@ import mongoose from "mongoose";
 
 import interviewRoutes from "./routes/interviewRoutes.js";
 
+import testRoutes from "./routes/test.js";
+
 dotenv.config();
 
 const app = express();
@@ -19,6 +21,8 @@ app.use(express.json());
 
 // Routes
 app.use("/api/interview", interviewRoutes);
+
+app.use("/api", testRoutes);
 
 // Health Check
 app.get("/", (req, res) => {
