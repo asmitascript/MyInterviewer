@@ -12,4 +12,7 @@ router.post("/start", startInterview);
 // Submit Answer
 router.post("/answer", submitAnswer);
 
+// Terminate the interview
+
+
 export default router;

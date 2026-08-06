@@ -2,6 +2,7 @@ import InterviewSession from "../models/interviewSession.js";
 
 import generateQuestion from "../utils/generateQuestions.js";
 import generateAnalysis from "../utils/analyseAnswers.js";
+import generateFinalFeedback from "../utils/generateFinalFeedback.js"
 
 
 
@@ -122,14 +123,61 @@ export const submitAnswer = async (req, res) => {
     // Save analysis
     currentResponse.analysis = analysis;
 
+    // Check Limit 
+    // interview.maxQuestions
+    if(interview.currentQuestionNumber >= 3){
+      const finalFeedback = await generateFinalFeedback({
+        role: interview.role,
+        experience: interview.experience,
+        difficulty: interview.difficulty,
+        interviewType: interview.interviewType,
+        responses: interview.responses
+      });
+
+      interview.finalFeedback = finalFeedback;
+      interview.status = "Completed";
+      interview.endedAt = new Date();
+
+      await interview.save();
+
+      return res.status(200).json({
+        success: true,
+        interviewCompleted: true,
+        finalFeedback,
+      });
+
+    }
+
+    // Generate Next Question
+    const nextQuestion = await generateQuestion({
+      role: interview.role,
+      experience: interview.experience,
+      difficulty: interview.difficulty,
+      interviewType: interview.interviewType,
+      previousQuestions: interview.responses.map(r => r.question),
+    });
+    
+    // Increament Question Number 
+    interview.currentQuestionNumber++;
+
+    // Push to DB
+    interview.responses.push({
+      order: interview.currentQuestionNumber,
+      question: nextQuestion.question,
+      answer: "",
+      questionType: "Normal",
+      analysis: null
+    });
+
     // Save interview session
     await interview.save();
 
     return res.status(200).json({
       success: true,
-      message: "Answer analyzed successfully.",
-      response: currentResponse,
-    });
+      interviewCompleted: false,
+      questionNumber: interview.currentQuestionNumber,
+      question: nextQuestion.question,
+    });    
 
   } catch (err) {
     console.error("Submit Answer Error:", err);
@@ -141,6 +189,7 @@ export const submitAnswer = async (req, res) => {
     });
   }
 };
+
 
 // Get Interview
 
