@@ -1,16 +1,35 @@
-import "./Footer.css"
+import "./Footer.css";
 
-function Footer(){
-    return(
-        <div className="footer">
-            <div className="copy-right">
-                © 2026 MyInterviewer
+import MainFooter from "./MainFooter"
+
+function Footer() {
+  return (
+    <>
+        <div className="footer-main">
+
+            <div className="footer-brand">
+                <h2>MyInterviewer</h2>
+
+                <p>
+                    Practice smarter with AI and become interview-ready.
+                </p>
             </div>
-            <div className="privacy-terms">
-                Privacy | Terms
+
+
+            <div className="footer-links">
+                <h2>Product</h2>
+
+                <ul>
+                    <li>Features</li>
+                    <li>How It Works</li>
+                    <li>Pricing</li>
+                </ul>
             </div>
+
         </div>
-    )
+        <MainFooter></MainFooter>
+    </>
+  );
 }
 
 export default Footer;
