@@ -1,10 +1,50 @@
-import express from "express";
+import express, { response } from "express";
+import InterviewSession from "../models/interviewSession.js";
 import {
   startInterview,
   submitAnswer,
 } from "../controllers/interviewController.js";
 
 const router = express.Router();
+
+// Get Interview 
+router.get("/:sessionId", async(req, res) =>{
+  const { sessionId } = req.params;
+  const interview = await InterviewSession.findById(sessionId);
+  
+  // validations
+  if(!interview){
+    return res.status(404).json({
+      success: false,
+      message: "Interview Not Found"
+    });
+  }
+
+  res.send({
+    role: interview.role,
+    experience: interview.experience,
+    difficulty: interview.difficulty,
+    interviewType: interview.interviewType,
+    status: interview.status,
+    totalQuestions: interview.currentQuestionNumber,
+    responses: interview.responses.map((response) => ({
+      order: response.order,
+      question: response.question,
+      answer: response.answer,
+      overallScore: response.overallScore,
+    })),
+    overallFinalFeedback: {
+    overallScore: interview.finalFeedback.overallScore,
+    technicalScore: interview.finalFeedback.technicalScore,
+    communicationScore: interview.finalFeedback.communicationScore,
+    grammarScore: interview.finalFeedback.grammarScore,
+    strengths: interview.finalFeedback.strengths,
+    improvements: interview.finalFeedback.improvements,
+    summary: interview.finalFeedback.summary,
+    suggestedPreparation: interview.finalFeedback.suggestedPreparation,
+  },
+  });
+})
 
 // Start Interview
 router.post("/start", startInterview);

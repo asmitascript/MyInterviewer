@@ -1,0 +1,117 @@
+.landing-page {
+  /* min-height: calc(100vh - 72px); */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 80px 20px;
+}
+
+.capsule{
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    height: 3rem;
+    width: 20rem;
+    
+    padding: 6px 16px;
+    border-radius: 100px;
+    background: rgba(108, 99, 255, 0.15);
+    border: 1px solid rgba(108, 99, 255, 0.3);
+
+    margin-bottom: 32px;
+    font-size: 15px;
+    color: rgb(167, 139, 250);
+
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 600;
+}
+
+
+.mainHeader {
+  max-width: 900px;
+
+  font-size: 64px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -2px;
+
+  color: #f8fafc;
+}
+
+
+.header2 {
+  max-width: 650px;
+
+  margin-top: 24px;
+
+  font-size: 18px;
+  line-height: 1.7;
+
+  color: #94a3b8;
+}
+
+
+.start-free-interview {
+  margin-top: 35px;
+
+  padding: 14px 28px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: linear-gradient(
+    135deg,
+    #7c5cfc,
+    #6246ea
+  );
+
+  color: white;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 30px rgba(124, 92, 252, 0.25);
+
+  transition: all 0.2s ease;
+}
+
+
+.start-free-interview:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 14px 35px rgba(124, 92, 252, 0.4);
+}
+
+.features-section{
+  display: flex;
+  flex-direction: column;
+  
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 80px 20px;
+}
+
+.progress-section{
+  display: inline-block;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 2rem;
+}
