@@ -27,6 +27,15 @@ function Progress() {
 
   return (
     <div>
+      <div className="head-line">
+        <p>
+          HOW IT WORKS
+        </p>
+        <p className="top-pick">
+          Practice. Improve. Get Hired.
+        </p>
+      </div>
+
       <div className="progress-grid">
         {progress.map((item, index) => (
           <ProgressCard
