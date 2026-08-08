@@ -34,7 +34,7 @@ function App() {
 
           {/* Interview Page */}
           <Route
-            path="/interview"
+            path="/interview/:sessionId"
             element={<Interview />}
           />
           <Route

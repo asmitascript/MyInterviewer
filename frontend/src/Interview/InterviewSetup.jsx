@@ -38,11 +38,7 @@ function InterviewSetup() {
       }
 
       // Redirect to Interview page
-      navigate("/interview", {
-        state: {
-          sessionId: data.sessionId,
-        },
-      });
+      navigate(`/interview/${data.sessionId}`);    
     } catch (error) {
       console.error("Error starting interview:", error);
     }

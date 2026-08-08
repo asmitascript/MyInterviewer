@@ -53,7 +53,7 @@ router.get("/:sessionId", async(req, res) =>{
 router.post("/start", startInterview);
 
 // Submit Answer
-router.post("/answer", submitAnswer);
+router.post("/:sessionId/answer", submitAnswer);
 
 // Terminate the interview
 
