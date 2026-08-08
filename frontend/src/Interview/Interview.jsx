@@ -1,32 +1,90 @@
 import "./Interview.css";
 
 import { MyContext } from "../context/MyContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { useLocation, useParams } from "react-router-dom";
 
 function Interview() {
+  const location = useLocation();
+
+  console.log("LOCATION STATE:", location.state);
+  console.log("QUESTION:", location.state?.question); 
+  const { sessionId } = useParams();
+
   const {
-    sessionId,
-    setSessionId,
     question,
     setQuestion,
     answer,
     setAnswer,
   } = useContext(MyContext);
 
+
+  // Set first question received from /start
+  useEffect(() => {
+    if (location.state?.question) {
+      setQuestion(location.state.question);
+    }
+  }, [location.state, setQuestion]);
+
+
+  // Submit answer
+  const handleAnswer = async () => {
+    console.log("SUBMIT CLICKED");
+    console.log("sessionId:", sessionId);
+    console.log("answer:", answer);
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/interview/${sessionId}/answer`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            answer: answer,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      console.log("STATUS:", response.status);
+      console.log("RESPONSE:", data);
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to submit answer");
+      }
+
+      // Interview completed
+      if (data.interviewCompleted) {
+        console.log("Interview completed");
+        console.log("Final feedback:", data.finalFeedback);
+
+        return;
+      }
+
+      // Backend generated next question
+      setQuestion(data.question);
+
+      // Clear textarea
+      setAnswer("");
+
+    } catch (err) {
+      console.error("Failed to submit answer:", err);
+    }
+  };
   return (
+    
     <>
-      <div className="interview-header">
-        Interview Role
-
-        <div className="timer-exit">
-          <div className="timer">
-            3:00
-          </div>
-
-          <button className="exit">
-            Exit
-          </button>
+      <div className="timer-exit">
+        <div className="timer">
+          3:00
         </div>
+
+        <button className="exit">
+          Exit
+        </button>
       </div>
 
       <div className="sidebar">
@@ -67,16 +125,16 @@ function Interview() {
 
         <div className="answer">
           <textarea
-            name=""
-            id=""
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
-          >
-          </textarea>
+          />
         </div>
 
         <div className="submit-area">
-          <button className="submit">
+          <button
+            className="submit"
+            onClick={handleAnswer}
+          >
             Submit Answer
           </button>
         </div>

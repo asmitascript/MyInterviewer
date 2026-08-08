@@ -85,7 +85,13 @@ export const startInterview = async (req, res) => {
 // Submit Answer
 export const submitAnswer = async (req, res) => {
   try {
-    const { sessionId, answer } = req.body;
+
+    console.log("🔥 SUBMIT ANSWER ROUTE HIT");
+    console.log("params:", req.params);
+    console.log("body:", req.body);
+    
+    const { sessionId } = req.params;
+    const { answer } = req.body;
 
     // Validation
     if (!sessionId || !answer) {
