@@ -17,7 +17,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// Interview Routes
 app.use("/api/interview", interviewRoutes);
 
 

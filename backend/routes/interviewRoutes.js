@@ -46,6 +46,9 @@ router.get("/:sessionId", async(req, res) =>{
   });
 })
 
+// Setup Interview
+
+// router.get("/setup");
 // Start Interview
 router.post("/start", startInterview);
 

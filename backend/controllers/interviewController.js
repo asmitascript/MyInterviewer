@@ -59,6 +59,12 @@ export const startInterview = async (req, res) => {
       ],
     });
 
+    console.log({
+      sessionId: interview._id,
+      questionNumber: 1,
+      question: question.question,
+    })
+
     return res.status(201).json({
       success: true,
       message: "Interview started successfully.",
