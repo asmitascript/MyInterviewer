@@ -11,7 +11,8 @@ function Footer() {
                 <h2>MyInterviewer</h2>
 
                 <p>
-                    Practice smarter with AI and become interview-ready.
+                    Practice smarter with AI 
+                    <br />and become interview-ready.
                 </p>
             </div>
 
