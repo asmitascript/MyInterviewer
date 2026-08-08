@@ -1,37 +1,51 @@
 import "./App.css";
-import Navbar from "./components/Navbar"
-import Landpage from "./pages/Landpage"
-import Footer from "./components/Footer"
 
-import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Interview from "./Interview/Interview"
+import Navbar from "./components/Navbar";
+import Landpage from "./pages/Landpage";
+import Footer from "./components/Footer";
+
+import Interview from "./Interview/Interview";
 
 import { MyProvider } from "./context/MyContext";
-
+import InterviewSetup from "./Interview/InterviewSetup";
 
 function App() {
-  const { question, setQuestion} = useState("");
-  const { answer, setAnswer} = useState("");
-
-  const providerValues = {
-    question, setQuestion,
-    answer, setAnswer
-  };
-
   return (
-    <>
-      <MyProvider>
-        <Interview/>
-      </MyProvider>
-    </>
+    <MyProvider>
+      <BrowserRouter>
+        <Routes>
+
+          {/* Landing Page */}
+          <Route
+            path="/"
+            element={
+              <>
+                <div className="background">
+                  <Navbar />
+                  <Landpage />
+                </div>
+
+                <Footer />
+              </>
+            }
+          />
+
+          {/* Interview Page */}
+          <Route
+            path="/interview"
+            element={<Interview />}
+          />
+          <Route
+            path="/interview/setup"
+            element={<InterviewSetup />}
+          />
+
+        </Routes>
+      </BrowserRouter>
+    </MyProvider>
   );
 }
 
 export default App;
-
-{/* <div className="background">
-        <Navbar></Navbar>
-        <Landpage></Landpage>
-      </div>
-      <Footer></Footer> */}

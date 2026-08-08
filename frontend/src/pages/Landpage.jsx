@@ -2,7 +2,11 @@ import "./Landpage.css";
 import Features from "../cards/Features";
 import Progress from "../cards/Progress";
 
+import { useNavigate } from "react-router-dom";
+
 function Landpage() {
+
+  const navigate = useNavigate();
   return (
    <> 
     <section className="landing-page">
@@ -20,7 +24,20 @@ function Landpage() {
         Get instant, personalized feedback and land your dream job faster.
       </div>
 
-      <button className="start-free-interview">
+      {/* <button
+        className="start-free-interview"
+        onClick={() => navigate("/interview")}
+      >
+        Start Free Interview
+      </button> */}
+      <button
+        type="button"
+        className="start-free-interview"
+        onClick={() => {
+          console.log("Navigating...");
+          navigate("/interview");
+        }}
+      >
         Start Free Interview
       </button>
 

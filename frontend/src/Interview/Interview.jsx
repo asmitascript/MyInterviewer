@@ -5,10 +5,12 @@ import { useContext } from "react";
 
 function Interview() {
   const {
+    sessionId,
+    setSessionId,
     question,
     setQuestion,
     answer,
-    setAnswer
+    setAnswer,
   } = useContext(MyContext);
 
   return (
