@@ -1,22 +1,31 @@
 import "./Interview.css";
 
+import { MyContext } from "../context/MyContext";
+import { useContext } from "react";
+
 function Interview() {
+  const {
+    question,
+    setQuestion,
+    answer,
+    setAnswer
+  } = useContext(MyContext);
+
   return (
     <>
       <div className="interview-header">
-        <h2>Interview Role</h2>
+        Interview Role
 
         <div className="timer-exit">
-            <div className="timer">
-                3:00
-            </div>
+          <div className="timer">
+            3:00
+          </div>
 
-            <button className="exit">
-                Exit
-            </button>
+          <button className="exit">
+            Exit
+          </button>
         </div>
       </div>
-
 
       <div className="sidebar">
 
@@ -49,17 +58,27 @@ function Interview() {
       </div>
 
       <div className="main-content">
+
         <div className="question">
-            Tell me about yourself!
+          {question}
         </div>
+
         <div className="answer">
-            <textarea name="" id=""></textarea>
+          <textarea
+            name=""
+            id=""
+            value={answer}
+            onChange={(e) => setAnswer(e.target.value)}
+          >
+          </textarea>
         </div>
+
         <div className="submit-area">
-            <button className="submit">
-                Submit Answer
-            </button>
+          <button className="submit">
+            Submit Answer
+          </button>
         </div>
+
       </div>
     </>
   );
