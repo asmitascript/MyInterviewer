@@ -3,6 +3,7 @@ import InterviewSession from "../models/interviewSession.js";
 import {
   startInterview,
   submitAnswer,
+  getFeedback
 } from "../controllers/interviewController.js";
 
 const router = express.Router();
@@ -31,10 +32,10 @@ router.get("/:sessionId", async(req, res) =>{
       order: response.order,
       question: response.question,
       answer: response.answer,
-      overallScore: response.overallScore,
+      // overallScore: response.overallScore,
     })),
     overallFinalFeedback: {
-    overallScore: interview.finalFeedback.overallScore,
+    // overallScore: interview.finalFeedback.overallScore,
     technicalScore: interview.finalFeedback.technicalScore,
     communicationScore: interview.finalFeedback.communicationScore,
     grammarScore: interview.finalFeedback.grammarScore,
@@ -57,5 +58,8 @@ router.post("/:sessionId/answer", submitAnswer);
 
 // Terminate the interview
 
+
+// Get Feedback
+router.get("/:sessionId/feedback", getFeedback);
 
 export default router;

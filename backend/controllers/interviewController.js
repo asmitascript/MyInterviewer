@@ -207,3 +207,60 @@ export const submitAnswer = async (req, res) => {
 
 
 // Get Final Feedback
+export const getFeedback = async (req, res) => {
+  try {
+    console.log("🔥 GET FEEDBACK ROUTE HIT");
+    console.log("params:", req.params);
+
+    const { sessionId } = req.params;
+
+    // Validation
+    if (!sessionId) {
+      return res.status(400).json({
+        success: false,
+        message: "Session ID is required.",
+      });
+    }
+
+    // Find interview session
+    const interview = await InterviewSession.findById(sessionId);
+
+    if (!interview) {
+      return res.status(404).json({
+        success: false,
+        message: "Interview session not found.",
+      });
+    }
+
+    // Check if interview is completed
+    if (interview.status !== "Completed") {
+      return res.status(400).json({
+        success: false,
+        message: "Interview is not completed yet.",
+      });
+    }
+
+    // Check if final feedback exists
+    if (!interview.finalFeedback) {
+      return res.status(404).json({
+        success: false,
+        message: "Final feedback not found.",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      sessionId: interview._id,
+      finalFeedback: interview.finalFeedback,
+    });
+
+  } catch (err) {
+    console.error("Get Feedback Error:", err);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to get feedback.",
+      error: err.message,
+    });
+  }
+};
