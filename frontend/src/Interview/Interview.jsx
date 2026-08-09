@@ -2,14 +2,13 @@ import "./Interview.css";
 
 import { MyContext } from "../context/MyContext";
 import { useContext, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 
 function Interview() {
   const location = useLocation();
 
-  console.log("LOCATION STATE:", location.state);
-  console.log("QUESTION:", location.state?.question); 
   const { sessionId } = useParams();
+  const navigate = useNavigate();
 
   const {
     question,
@@ -58,11 +57,15 @@ function Interview() {
 
       // Interview completed
       if (data.interviewCompleted) {
-        console.log("Interview completed");
-        console.log("Final feedback:", data.finalFeedback);
+      navigate("/feedback", {
+        state: {
+          sessionId,
+          finalFeedback: data.finalFeedback,
+        },
+      });
 
-        return;
-      }
+      return;
+    }
 
       // Backend generated next question
       setQuestion(data.question);
