@@ -10,6 +10,7 @@ import Interview from "./Interview/Interview";
 
 import { MyProvider } from "./context/MyContext";
 import InterviewSetup from "./Interview/InterviewSetup";
+import Feedback from "./Interview/Feedback";
 
 function App() {
   return (
@@ -41,6 +42,11 @@ function App() {
             path="/interview/setup"
             element={<InterviewSetup />}
           />
+
+          <Route
+          path="/feedback/:sessionId"
+          element={<Feedback/>}>
+            </Route>
 
         </Routes>
       </BrowserRouter>

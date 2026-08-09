@@ -55,15 +55,11 @@ function Interview() {
         throw new Error(data.message || "Failed to submit answer");
       }
 
-      // Interview completed
-      if (data.interviewCompleted) {
-      navigate("/feedback", {
-        state: {
-          sessionId,
-          finalFeedback: data.finalFeedback,
-        },
-      });
+      console.log("NAVIGATING TO:", `/feedback/${sessionId}`);
 
+      // Interview completed
+    if (data.interviewCompleted) {
+      navigate(`/feedback/${sessionId}`);
       return;
     }
 

@@ -8,6 +8,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 
 import interviewRoutes from "./routes/interviewRoutes.js";
+import feedbackRoutes from "./routes/feedbackRoutes.js";
 
 dotenv.config();
 
@@ -20,6 +21,8 @@ app.use(express.json());
 // Interview Routes
 app.use("/api/interview", interviewRoutes);
 
+// Feedback Routes
+app.use("/feedback", feedbackRoutes);
 
 // Health Check
 app.get("/", (req, res) => {
