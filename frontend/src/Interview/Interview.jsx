@@ -80,14 +80,19 @@ function Interview() {
   return (
     
     <>
-      <div className="timer-exit">
-        <div className="timer">
-          3:00
+      <div className="interview-header">
+        <div className="role">
+            ROLE
         </div>
+        <div className="timer-exit">
+          <div className="timer">
+            3:00
+          </div>
 
-        <button className="exit">
-          Exit
-        </button>
+          <button className="exit">
+            Exit
+          </button>
+        </div>
       </div>
 
       <div className="sidebar">
