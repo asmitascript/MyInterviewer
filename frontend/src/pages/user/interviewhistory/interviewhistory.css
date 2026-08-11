@@ -1,0 +1,479 @@
+/* =================================
+   INTERVIEW HISTORY PAGE
+================================= */
+
+.history-page {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  color: rgba(108, 99, 255, 0.15);
+}
+
+
+/* =================================
+   HEADER
+================================= */
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.history-header h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  color: #f5f5ff;
+}
+
+.history-header p {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: #9296b5;
+}
+
+
+/* =================================
+   TOTAL INTERVIEWS
+================================= */
+
+.history-total {
+  min-width: 125px;
+  padding: 14px 20px;
+
+  text-align: center;
+
+  background: #111323;
+  border: 1px solid #242741;
+  border-radius: 14px;
+}
+
+.history-total span {
+  display: block;
+
+  font-size: 24px;
+  font-weight: 700;
+
+  color: #ffffff;
+}
+
+.history-total p {
+  margin: 4px 0 0;
+
+  font-size: 11px;
+  color: #8589a8;
+}
+
+
+/* =================================
+   TOOLBAR
+================================= */
+
+.history-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+
+/* =================================
+   SEARCH
+================================= */
+
+.history-search {
+  flex: 1;
+
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+  padding: 0 14px;
+
+  background: #111323;
+
+  border: 1px solid #242741;
+  border-radius: 10px;
+
+  color: #8589a8;
+
+  transition: 0.2s ease;
+}
+
+.history-search:focus-within {
+  border-color: #6c5ce7;
+
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.12);
+}
+
+.history-search input {
+  width: 100%;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  color: #f5f5ff;
+}
+
+.history-search input::placeholder {
+  color: #686d8c;
+}
+
+
+/* =================================
+   FILTER SELECT
+================================= */
+
+.history-select {
+  height: 44px;
+  min-width: 150px;
+
+  padding: 0 12px;
+
+  background: #111323;
+
+  border: 1px solid #242741;
+  border-radius: 10px;
+
+  color: #c7c9dc;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  outline: none;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.history-select:hover,
+.history-select:focus {
+  border-color: #6c5ce7;
+}
+
+.history-select option {
+  background: #111323;
+  color: #ffffff;
+}
+
+
+/* =================================
+   HISTORY CARD
+================================= */
+
+.history-card {
+  background: #111323;
+
+  border: 1px solid #242741;
+  border-radius: 14px;
+
+  overflow: hidden;
+}
+
+
+/* =================================
+   TABLE HEADER + ROW
+================================= */
+
+.history-table-header,
+.history-row {
+  display: grid;
+
+  grid-template-columns:
+    2.2fr
+    1fr
+    1fr
+    0.7fr
+    1fr
+    1fr
+    0.6fr;
+
+  align-items: center;
+
+  column-gap: 15px;
+
+  padding: 16px 20px;
+}
+
+
+/* =================================
+   TABLE HEADER
+================================= */
+
+.history-table-header {
+  background: #151728;
+
+  border-bottom: 1px solid #242741;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.05em;
+
+  color: #777c9b;
+}
+
+
+/* =================================
+   HISTORY ROW
+================================= */
+
+.history-row {
+  min-height: 76px;
+
+  border-bottom: 1px solid #1d2035;
+
+  transition: background 0.2s ease;
+}
+
+.history-row:last-child {
+  border-bottom: none;
+}
+
+.history-row:hover {
+  background: #151728;
+}
+
+
+/* =================================
+   INTERVIEW INFO
+================================= */
+
+.history-interview {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.history-icon {
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #1b1d32;
+
+  border: 1px solid #292c48;
+
+  border-radius: 10px;
+
+  font-size: 18px;
+}
+
+.history-interview h3 {
+  margin: 0;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #f1f1fb;
+}
+
+.history-interview p {
+  margin: 4px 0 0;
+
+  font-size: 11px;
+
+  color: #777c9b;
+}
+
+
+/* =================================
+   INTERVIEW TYPE
+================================= */
+
+.history-type {
+  font-size: 12px;
+  color: #a8acc6;
+}
+
+
+/* =================================
+   DIFFICULTY
+================================= */
+
+.difficulty {
+  width: fit-content;
+
+  padding: 5px 9px;
+
+  border-radius: 20px;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.difficulty.easy {
+  background: rgba(52, 211, 153, 0.10);
+  border: 1px solid rgba(52, 211, 153, 0.15);
+
+  color: #4ade80;
+}
+
+.difficulty.medium {
+  background: rgba(251, 191, 36, 0.10);
+  border: 1px solid rgba(251, 191, 36, 0.15);
+
+  color: #fbbf24;
+}
+
+.difficulty.hard {
+  background: rgba(248, 113, 113, 0.10);
+  border: 1px solid rgba(248, 113, 113, 0.15);
+
+  color: #f87171;
+}
+
+
+/* =================================
+   SCORE
+================================= */
+
+.history-score {
+  font-size: 14px;
+  font-weight: 700;
+
+  color: #8174ff;
+}
+
+
+/* =================================
+   STATUS
+================================= */
+
+.status {
+  width: fit-content;
+
+  padding: 5px 9px;
+
+  border-radius: 20px;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.status.completed {
+  background: rgba(52, 211, 153, 0.10);
+  border: 1px solid rgba(52, 211, 153, 0.15);
+
+  color: #4ade80;
+}
+
+
+/* =================================
+   DATE
+================================= */
+
+.history-date {
+  font-size: 11px;
+  color: #8589a8;
+}
+
+
+/* =================================
+   VIEW BUTTON
+================================= */
+
+.view-button {
+  height: 32px;
+
+  padding: 0 12px;
+
+  border: 1px solid #39335f;
+  border-radius: 8px;
+
+  background: rgba(108, 92, 231, 0.10);
+
+  color: #8b7fff;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.view-button:hover {
+  background: #6c5ce7;
+  border-color: #6c5ce7;
+
+  color: #ffffff;
+
+  box-shadow: 0 4px 15px rgba(108, 92, 231, 0.25);
+}
+
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 1000px) {
+
+  .history-table-header,
+  .history-row {
+    grid-template-columns:
+      2fr
+      1fr
+      1fr
+      0.8fr
+      1fr
+      0.7fr;
+  }
+
+  .history-table-header span:nth-child(6),
+  .history-row .history-date {
+    display: none;
+  }
+}
+
+
+@media (max-width: 700px) {
+
+  .history-header {
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .history-header h1 {
+    font-size: 24px;
+  }
+
+  .history-total {
+    min-width: 90px;
+  }
+
+  .history-toolbar {
+    flex-direction: column;
+  }
+
+  .history-select {
+    width: 100%;
+  }
+
+  .history-card {
+    overflow-x: auto;
+  }
+
+  .history-table-header,
+  .history-row {
+    min-width: 850px;
+  }
+}

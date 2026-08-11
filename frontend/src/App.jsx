@@ -12,6 +12,10 @@ import { MyProvider } from "./context/MyContext";
 import InterviewSetup from "./Interview/InterviewSetup";
 import Feedback from "./Interview/Feedback";
 
+import User from "./pages/user/User";
+
+import InterviewHistory from "./pages/user/interviewhistory/interviewhistory";
+
 function App() {
   return (
     <MyProvider>
@@ -48,7 +52,18 @@ function App() {
           element={<Feedback/>}>
             </Route>
 
+          <Route
+            path="/user"
+            element={<User />}
+          >
+            <Route
+              path="interview-history"
+              element={<InterviewHistory />}
+            />
+          </Route>
+
         </Routes>
+
       </BrowserRouter>
     </MyProvider>
   );
