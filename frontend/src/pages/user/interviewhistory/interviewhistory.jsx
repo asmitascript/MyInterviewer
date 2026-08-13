@@ -1,22 +1,82 @@
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "./interviewHistory.css";
 
 function InterviewHistory() {
+  const navigate = useNavigate();
+  const { userId } = useParams();
+
+  const [interviews, setInterviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchInterviewHistory = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/${userId}/allfeedback`
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.message || "Failed to fetch interview history"
+          );
+        }
+
+        setInterviews(data.interviews);
+      } catch (error) {
+        console.error("Interview history error:", error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (userId) {
+      fetchInterviewHistory();
+    }
+  }, [userId]);
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="history-page">
+        <h2>Loading interview history...</h2>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="history-page">
+        <h2>{error}</h2>
+      </div>
+    );
+  }
+
   return (
     <div className="history-page">
 
       {/* Header */}
       <div className="history-header">
+
         <div>
           <h1>Interview History</h1>
+
           <p>
             View and review your previous interview sessions.
           </p>
         </div>
 
         <div className="history-total">
-          <span>12</span>
+          <span>{interviews.length}</span>
+
           <p>Total Interviews</p>
         </div>
+
       </div>
 
 
@@ -25,6 +85,7 @@ function InterviewHistory() {
 
         <div className="history-search">
           🔍
+
           <input
             type="text"
             placeholder="Search interviews..."
@@ -63,146 +124,108 @@ function InterviewHistory() {
         </div>
 
 
-        {/* Interview Row */}
-        <div className="history-row">
+        {/* Dynamic Rows */}
+        {interviews.map((interview) => (
 
-          <div className="history-interview">
-            <div className="history-icon">
-              🎤
+          <div
+            className="history-row"
+            key={interview.sessionId}
+          >
+
+            {/* Interview */}
+            <div className="history-interview">
+
+              <div className="history-icon">
+                🎤
+              </div>
+
+              <div>
+
+                <h3>
+                  {interview.role}
+                </h3>
+
+                <p>
+                  {interview.experience}
+                </p>
+
+              </div>
+
             </div>
 
-            <div>
-              <h3>Software Engineer</h3>
-              <p>Technical Interview</p>
-            </div>
+
+            {/* Type */}
+            <span className="history-type">
+              {interview.interviewType}
+            </span>
+
+
+            {/* Difficulty */}
+            <span
+              className={`difficulty ${interview.difficulty}`}
+            >
+              {interview.difficulty}
+            </span>
+
+
+            {/* Score */}
+            <span className="history-score">
+              {interview.overallFinalFeedback}/10
+            </span>
+
+
+            {/* Status */}
+            <span
+              className={`status ${interview.status.toLowerCase()}`}
+            >
+              {interview.status}
+            </span>
+
+
+            {/* Date */}
+            <span className="history-date">
+
+              {new Date(
+                interview.date
+              ).toLocaleDateString(
+                "en-US",
+                {
+                  month: "short",
+                  day: "2-digit",
+                  year: "numeric",
+                }
+              )}
+
+            </span>
+
+
+            {/* View */}
+            <button
+              className="view-button"
+              onClick={() =>
+                navigate(
+                  `/user/interview-history/${interview.sessionId}`
+                )
+              }
+            >
+              View
+            </button>
+
           </div>
 
-
-          <span className="history-type">
-            Technical
-          </span>
+        ))}
 
 
-          <span className="difficulty medium">
-            Medium
-          </span>
+        {/* Empty State */}
+        {interviews.length === 0 && (
+          <div className="history-empty">
+            <h3>No interviews found</h3>
 
-
-          <span className="history-score">
-            82%
-          </span>
-
-
-          <span className="status completed">
-            Completed
-          </span>
-
-
-          <span className="history-date">
-            Aug 10, 2026
-          </span>
-
-
-          <button className="view-button">
-            View
-          </button>
-
-        </div>
-
-
-        {/* Second Row */}
-        <div className="history-row">
-
-          <div className="history-interview">
-            <div className="history-icon">
-              🎤
-            </div>
-
-            <div>
-              <h3>Frontend Developer</h3>
-              <p>Technical Interview</p>
-            </div>
+            <p>
+              Complete an interview to see it here.
+            </p>
           </div>
-
-
-          <span className="history-type">
-            Technical
-          </span>
-
-
-          <span className="difficulty easy">
-            Easy
-          </span>
-
-
-          <span className="history-score">
-            76%
-          </span>
-
-
-          <span className="status completed">
-            Completed
-          </span>
-
-
-          <span className="history-date">
-            Aug 07, 2026
-          </span>
-
-
-          <button className="view-button">
-            View
-          </button>
-
-        </div>
-
-
-        {/* Third Row */}
-        <div className="history-row">
-
-          <div className="history-interview">
-            <div className="history-icon">
-              🎤
-            </div>
-
-            <div>
-              <h3>Backend Developer</h3>
-              <p>Technical Interview</p>
-            </div>
-          </div>
-
-
-          <span className="history-type">
-            Technical
-          </span>
-
-
-          <span className="difficulty hard">
-            Hard
-          </span>
-
-
-          <span className="history-score">
-            68%
-          </span>
-
-
-          <span className="status completed">
-            Completed
-          </span>
-
-
-          <span className="history-date">
-            Jul 30, 2026
-          </span>
-
-
-          <button className="view-button">
-            View
-          </button>
-
-        </div>
-
+        )}
 
       </div>
 

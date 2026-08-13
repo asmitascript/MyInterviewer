@@ -27,14 +27,9 @@ export const allFeedback = async (req, res) =>{
 
       totalQuestions: interview.currentQuestionNumber,
 
-      responses: (interview.responses || []).map((response) => ({
-        order: response.order,
-        question: response.question,
-        answer: response.answer,
-        overallScore: response.analysis?.score,
-      })),
+      overallFinalFeedback: interview.finalFeedback.overallScore,
 
-      overallFinalFeedback: interview.finalFeedback || {},
+      date: interview.createdAt,
     }));
 
     res.json({
