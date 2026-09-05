@@ -3,6 +3,7 @@
   min-height: 100%;
   padding: 32px;
   box-sizing: border-box;
+  background-color: #07091a;
 }
 
 
@@ -19,7 +20,7 @@
   margin: 0 0 8px;
   font-size: 30px;
   font-weight: 700;
-  color: rgba(79, 70, 229, 0.35);
+  color: rgb(240, 240, 247);
 }
 
 .dashboard-header p {
@@ -54,7 +55,7 @@
   padding: 22px;
   border: 1px solid #292929;
   border-radius: 12px;
-  background: #171717;
+  background: #0b0d1f;
 }
 
 .stat-card p {
@@ -79,7 +80,7 @@
 .dashboard-section {
   border: 1px solid #292929;
   border-radius: 12px;
-  background: #171717;
+  background: #0b0d1f;
   padding: 24px;
 }
 
@@ -199,6 +200,7 @@
 
 .insight-card {
   min-height: 300px;
+  background-color: #0b0d1f;
 }
 
 .insight-list {

@@ -61,7 +61,7 @@ function App() {
             />
 
             <Route
-              path="interview-history"
+              path=":userId/interview-history"
               element={<InterviewHistory />}
             />
 

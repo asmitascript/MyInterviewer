@@ -59,7 +59,7 @@ function Dashboard() {
       <div className="dashboard-header">
 
         <div>
-          <h1>Welcome back, Faith 👋</h1>
+          <h1>Welcome back, { userId } 👋</h1>
 
           <p>
             Track your interview performance and keep improving.
