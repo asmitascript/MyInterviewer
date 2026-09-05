@@ -9,6 +9,7 @@ import mongoose from "mongoose";
 
 import interviewRoutes from "./routes/interviewRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import dashboardRoutes from "./routes/dashboardRoutes.js";
 
 dotenv.config();
 
@@ -23,6 +24,9 @@ app.use("/api/interview", interviewRoutes);
 
 // Feedback Routes
 app.use("/", userRoutes);
+
+app.use("/user", dashboardRoutes);
+
 
 // Health Check
 app.get("/", (req, res) => {

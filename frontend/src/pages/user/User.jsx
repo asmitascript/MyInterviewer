@@ -43,14 +43,6 @@ function User() {
           </NavLink>
 
           <NavLink
-            to="/user/performance"
-            className="sidebar-link"
-          >
-            <span>📈</span>
-            Performance
-          </NavLink>
-
-          <NavLink
             to="/user/settings"
             className="sidebar-link"
           >

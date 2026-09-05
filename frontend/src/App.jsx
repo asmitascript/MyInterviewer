@@ -15,6 +15,7 @@ import Feedback from "./Interview/Feedback";
 import User from "./pages/user/User";
 
 import InterviewHistory from "./pages/user/interviewhistory/interviewhistory";
+import Dashboard from "./pages/user/dashboard/Dashboard";
 
 function App() {
   return (
@@ -52,14 +53,18 @@ function App() {
           element={<Feedback/>}>
             </Route>
 
-          <Route
-            path="/user"
-            element={<User />}
-          >
+          <Route path="/user" element={<User />}>
+
             <Route
-                path="/user/:userId/interview-history"
+              path=":userId/dashboard"
+              element={<Dashboard />}
+            />
+
+            <Route
+              path="interview-history"
               element={<InterviewHistory />}
             />
+
           </Route>
 
         </Routes>
