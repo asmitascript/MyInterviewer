@@ -8,6 +8,7 @@ function Dashboard() {
 
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchDashboard = async () => {
@@ -20,9 +21,12 @@ function Dashboard() {
 
         if (data.success) {
           setDashboardData(data.dashboard);
+        }else{
+          setError(data.message);
         }
-      } catch (error) {
+      }catch (error) {
         console.error("Failed to fetch dashboard:", error);
+        setError("Unable to load dashboard data.");
       } finally {
         setLoading(false);
       }
@@ -30,6 +34,24 @@ function Dashboard() {
 
     fetchDashboard();
   }, [userId]);
+
+  if (loading) {
+    return (
+      <div className="dashboard-page">
+        Loading dashboard...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="dashboard-page">
+        <h2>{error}</h2>
+        <p>Complete your first interview to see your dashboard statistics.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="dashboard-page">
 
@@ -198,22 +220,22 @@ function Dashboard() {
 
           <div className="insight-list">
 
-            {dashboardData?.improvements?.slice(0, 3).map((improvement, index) => (
-              <div className="insight-item" key={index}>
-                <div className="insight-icon warning">
-                  !
-                </div>
+        {dashboardData?.improvements?.slice(0, 3).map((improvement, index) => (
+          <div className="insight-item" key={index}>
+            <div className="insight-icon warning">
+              !
+            </div>
 
-                <div>
-                  <h3>{improvement}</h3>
-                  <p>
-                    Focus on improving this area in your upcoming interviews.
-                  </p>
-                </div>
-              </div>
-            ))}
-
+            <div>
+              <h3>{improvement}</h3>
+              <p>
+                Focus on improving this area in your upcoming interviews.
+              </p>
+            </div>
           </div>
+        ))}
+
+      </div>
 
           {/* <div className="insight-list">
 
