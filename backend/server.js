@@ -10,6 +10,7 @@ import mongoose from "mongoose";
 import interviewRoutes from "./routes/interviewRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
+import authRoutes from "./routes/authRoutes.js"
 
 dotenv.config();
 
@@ -27,6 +28,9 @@ app.use("/", userRoutes);
 
 // Dashboard Routes
 app.use("/user", dashboardRoutes);
+
+// authentication
+app.use("/auth", authRoutes);
 
 
 // Health Check
