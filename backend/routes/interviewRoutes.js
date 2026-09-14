@@ -9,6 +9,7 @@ import {
 const router = express.Router();
 
 // Get Interview 
+// To have a details of each interview
 router.get("/:sessionId", async(req, res) =>{
   const { sessionId } = req.params;
   const interview = await InterviewSession.findById(sessionId);
@@ -60,6 +61,7 @@ router.post("/:sessionId/answer", submitAnswer);
 
 
 // Get Feedback
+// Redirect after an interview complete
 router.get("/:sessionId/feedback", getFeedback);
 
 export default router;
