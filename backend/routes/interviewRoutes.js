@@ -1,4 +1,4 @@
-import express, { response } from "express";
+import express from "express";
 import InterviewSession from "../models/interviewSession.js";
 import {
   startInterview,
@@ -11,7 +11,7 @@ const router = express.Router();
 
 // Get Interview 
 // To have a details of each interview
-router.get("/:sessionId", async(req, res) =>{
+router.get("/:sessionId", authenticate, async(req, res) =>{
   const { sessionId } = req.params;
   const interview = await InterviewSession.findById(sessionId);
   

@@ -10,7 +10,6 @@ import generateFinalFeedback from "../utils/generateFinalFeedback.js"
 export const startInterview = async (req, res) => {
   try {
     const {
-      userId,
       role,
       experience,
       difficulty,
@@ -19,7 +18,6 @@ export const startInterview = async (req, res) => {
 
     // Validation
     if (
-      !userId ||
       !role ||
       !experience ||
       !difficulty ||
@@ -42,7 +40,7 @@ export const startInterview = async (req, res) => {
 
     // Create interview session
     const interview = await InterviewSession.create({
-      userId,
+      userId: req.user._id,
       role,
       experience,
       difficulty,
@@ -102,7 +100,10 @@ export const submitAnswer = async (req, res) => {
     }
 
     // Find interview session
-    const interview = await InterviewSession.findById(sessionId);
+    const interview = await InterviewSession.findOne({
+      _id: sessionId,
+      userId: req.user._id,
+    });
 
     if (!interview) {
       return res.status(404).json({
@@ -223,7 +224,10 @@ export const getFeedback = async (req, res) => {
     }
 
     // Find interview session
-    const interview = await InterviewSession.findById(sessionId);
+    const interview = await InterviewSession.findOne({
+      _id: sessionId,
+      userId: req.user._id,
+    });
 
     if (!interview) {
       return res.status(404).json({

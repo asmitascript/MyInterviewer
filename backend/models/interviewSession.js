@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import responseSchema from "./response.js";
+import User from "./user.js"
 
 const finalFeedbackSchema = new mongoose.Schema(
   {
@@ -57,7 +58,8 @@ const finalFeedbackSchema = new mongoose.Schema(
 const interviewSessionSchema = new mongoose.Schema(
   {
     userId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
 
