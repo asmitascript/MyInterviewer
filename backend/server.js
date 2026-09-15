@@ -6,6 +6,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 
 import interviewRoutes from "./routes/interviewRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
@@ -19,6 +20,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 // Interview Routes
 app.use("/api/interview", interviewRoutes);

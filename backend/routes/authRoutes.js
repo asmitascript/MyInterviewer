@@ -1,4 +1,5 @@
 import { loginUser, registerUser } from "../controllers/authController.js";
+import { authenticate } from "../middleware/authMiddleware.js";
 
 import express, { response } from "express";
 
@@ -8,4 +9,17 @@ router.post("/register", registerUser);
 
 router.post("/login", loginUser);
 
+router.get("/me", authenticate, (req, res) => {
+  res.json({
+    user: {
+      id: req.user._id,
+      firstName: req.user.firstName,
+      lastName: req.user.lastName,
+      email: req.user.email,
+    },
+  });
+});
 export default router;
+
+
+
