@@ -1,5 +1,4 @@
 import express from "express";
-import InterviewSession from "../models/interviewSession.js";
 import {
   startInterview,
   submitAnswer,
@@ -7,6 +6,13 @@ import {
   getInterview
 } from "../controllers/interviewController.js";
 import { authenticate, authorised } from "../middlewares/authMiddleware.js";
+
+import { validate } from "../middlewares/validationMiddleware.js";
+
+import {
+    startInterviewSchema,
+    submitAnswerSchema
+} from "../validations/interviewValidation.js";
 
 const router = express.Router();
 
@@ -18,10 +24,19 @@ router.get("/:sessionId", authenticate, authorised, getInterview);
 
 // router.get("/setup");
 // Start Interview
-router.post("/start", authenticate, startInterview);
+router.post("/start", 
+  authenticate, 
+  validate(startInterviewSchema),
+  startInterview,
+);
 
 // Submit Answer
-router.post("/:sessionId/answer", authenticate, authorised, submitAnswer);
+router.post("/:sessionId/answer", 
+  authenticate, 
+  authorised, 
+  validate(submitAnswerSchema),
+  submitAnswer
+);
 
 // Terminate the interview
 
