@@ -1,13 +1,21 @@
+import express from "express";
+
 import { loginUser, logoutUser, registerUser } from "../controllers/authController.js";
 import { authenticate } from "../middlewares/authMiddleware.js";
-
-import express, { response } from "express";
+import { validate } from "../middlewares/validationMiddleware.js";
+import { registerUserSchema, loginUserSchema } from "../validations/authValidation.js";
 
 const router = express.Router();
 
-router.post("/register", registerUser);
+router.post("/register", 
+  validate(registerUserSchema),
+  registerUser
+);
 
-router.post("/login", loginUser);
+router.post("/login", 
+  validate(loginUserSchema),
+  loginUser
+);
 
 router.post("/logout", authenticate, logoutUser)
 
