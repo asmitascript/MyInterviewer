@@ -28,3 +28,10 @@ export const submitAnswerSchema = Joi.object({
         .max(5000)
         .required(),
 });
+
+export const sessionIdSchema = Joi.object({
+    sessionId: Joi.string()
+        .hex()
+        .length(24)
+        .required(),
+});

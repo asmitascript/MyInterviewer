@@ -7,7 +7,8 @@ import {
 } from "../controllers/interviewController.js";
 import { authenticate, authorised } from "../middlewares/authMiddleware.js";
 
-import { validate } from "../middlewares/validationMiddleware.js";
+import { validate, validateParams } from "../middlewares/validationMiddleware.js";
+import { sessionIdSchema } from "../validations/interviewValidation.js";
 
 import {
     startInterviewSchema,
@@ -18,7 +19,11 @@ const router = express.Router();
 
 // Get Interview 
 // To have a details of each interview
-router.get("/:sessionId", authenticate, authorised, getInterview);
+router.get("/:sessionId", 
+  authenticate, 
+  validateParams(sessionIdSchema),
+  authorised, 
+  getInterview);
 
 // Setup Interview
 
@@ -32,8 +37,9 @@ router.post("/start",
 
 // Submit Answer
 router.post("/:sessionId/answer", 
-  authenticate, 
-  authorised, 
+  authenticate,  
+  validateParams(sessionIdSchema),
+  authorised,
   validate(submitAnswerSchema),
   submitAnswer
 );
@@ -43,6 +49,10 @@ router.post("/:sessionId/answer",
 
 // Get Feedback
 // Redirect after an interview complete
-router.get("/:sessionId/feedback", authenticate, authorised, getFeedback);
+router.get("/:sessionId/feedback", 
+  authenticate,
+  validateParams(sessionIdSchema),
+  authorised,
+  getFeedback);
 
 export default router;
