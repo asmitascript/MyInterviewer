@@ -15,7 +15,7 @@ Users can configure an interview based on their **role, experience level, diffic
 Users can configure their interview based on:
 
 * **Role** — the position they want to practice for
-* **Experience Level** — Fresher, Mid, or Senior
+* **Experience Level** — Fresher, Junior, Mid, or Senior
 * **Difficulty** — Easy, Medium, or Hard
 * **Interview Type** — Technical, HR, or Behavioral
 
