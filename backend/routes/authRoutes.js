@@ -1,5 +1,5 @@
 import { loginUser, logoutUser, registerUser } from "../controllers/authController.js";
-import { authenticate } from "../middleware/authMiddleware.js";
+import { authenticate } from "../middlewares/authMiddleware.js";
 
 import express, { response } from "express";
 

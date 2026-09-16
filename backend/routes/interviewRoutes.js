@@ -5,13 +5,13 @@ import {
   submitAnswer,
   getFeedback
 } from "../controllers/interviewController.js";
-import { authenticate } from "../middleware/authMiddleware.js";
+import { authenticate, authorised } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
 // Get Interview 
 // To have a details of each interview
-router.get("/:sessionId", authenticate, async(req, res) =>{
+router.get("/:sessionId", authenticate, authorised, async(req, res) =>{
   const { sessionId } = req.params;
   const interview = await InterviewSession.findById(sessionId);
   
@@ -56,13 +56,13 @@ router.get("/:sessionId", authenticate, async(req, res) =>{
 router.post("/start", authenticate, startInterview);
 
 // Submit Answer
-router.post("/:sessionId/answer", authenticate, submitAnswer);
+router.post("/:sessionId/answer", authenticate, authorised, submitAnswer);
 
 // Terminate the interview
 
 
 // Get Feedback
 // Redirect after an interview complete
-router.get("/:sessionId/feedback", authenticate, getFeedback);
+router.get("/:sessionId/feedback", authenticate, authorised, getFeedback);
 
 export default router;
