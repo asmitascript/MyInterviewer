@@ -17,6 +17,10 @@ import User from "./pages/user/User";
 import InterviewHistory from "./pages/user/interviewhistory/interviewhistory";
 import Dashboard from "./pages/user/dashboard/Dashboard";
 
+import Register from "./pages/auth/Register";
+import Login from "./pages/auth/Login";
+
+
 function App() {
   return (
     <MyProvider>
@@ -66,6 +70,13 @@ function App() {
             />
 
           </Route>
+
+          <Route
+            path="/auth/register" element={<Register/>}
+          />
+          <Route
+            path="/auth/login" element={<Login/>}
+          />
 
         </Routes>
 
