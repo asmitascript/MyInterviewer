@@ -1,7 +1,66 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Auth.css";
 
+import { useState } from "react";
+
 const Register = () => {
+
+  const navigate = useNavigate();
+
+  // Store user inputs
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleRegister = async (e) => {
+
+    e.preventDefault();
+
+    console.log("REGISTER SUBMITTED");
+
+    if (password !== confirmPassword) {
+        console.error("Passwords do not match, fill with same password");
+        return;
+    }
+
+    try {
+        console.log({
+            firstName,
+            lastName,
+            email,
+            password,
+        });
+      const response = await fetch(
+        "http://localhost:8080/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to register");
+      }
+
+      // Redirect to Interview page
+      navigate(`/auth/login`,);    
+    } catch (error) {
+      console.error("Error in Register:", error);
+    }
+  };
     return (
         <div className="auth-page">
             <div className="auth-card">
@@ -11,7 +70,10 @@ const Register = () => {
                     <p>Start your AI interview journey</p>
                 </div>
 
-                <form className="auth-form">
+                <form
+                    className="auth-form"
+                    onSubmit={handleRegister}
+                >
 
                     <div className="auth-field">
                         <label htmlFor="firstName">First Name</label>
@@ -19,6 +81,8 @@ const Register = () => {
                             id="firstName"
                             type="text"
                             placeholder="First name"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
                         />
                     </div>
 
@@ -28,6 +92,8 @@ const Register = () => {
                             id="lastName"
                             type="text"
                             placeholder="Last name"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
                         />
                     </div>
 
@@ -36,7 +102,9 @@ const Register = () => {
                         <input
                             id="email"
                             type="email"
-                            placeholder="you@example.com"
+                            placeholder="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
 
@@ -45,7 +113,9 @@ const Register = () => {
                         <input
                             id="password"
                             type="password"
-                            placeholder="Create a password"
+                            placeholder="Enter assword"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
 
@@ -55,8 +125,10 @@ const Register = () => {
                         </label>
                         <input
                             id="confirmPassword"
-                            type="password"
-                            placeholder="Confirm your password"
+                            type="text"
+                            placeholder="Confirm Password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                     </div>
 
