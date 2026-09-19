@@ -2,7 +2,7 @@ import InterviewSession from "../models/interviewSession.js";
 
 export const getDashboard = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const userId = req.user._id;
 
     console.log("Dashboard User ID:", userId);
 

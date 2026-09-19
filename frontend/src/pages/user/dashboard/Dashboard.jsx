@@ -14,7 +14,10 @@ function Dashboard() {
     const fetchDashboard = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/user/${userId}/dashboard`
+          "http://localhost:8080/user/dashboard",
+          {
+            credentials: "include",
+          }
         );
 
         const data = await response.json();

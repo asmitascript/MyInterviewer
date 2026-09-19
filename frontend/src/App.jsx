@@ -60,7 +60,7 @@ function App() {
           <Route path="/user" element={<User />}>
 
             <Route
-              path=":userId/dashboard"
+              path="dashboard"
               element={<Dashboard />}
             />
 

@@ -41,7 +41,7 @@ const Login = () => {
       }
 
       // Redirect to Dashboard page
-      navigate(`/user/dashboard`,);    
+      navigate("/user/dashboard");    
     } catch (error) {
       console.error("Error in Login:", error);
     }
