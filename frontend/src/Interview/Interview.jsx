@@ -40,6 +40,7 @@ function Interview() {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
           body: JSON.stringify({
             answer: answer,
           }),

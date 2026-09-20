@@ -14,9 +14,11 @@ function Feedback() {
     const getFeedback = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/interview/${sessionId}/feedback`
+          `http://localhost:8080/api/interview/${sessionId}/feedback`,{
+            credentials: "include",
+          }
         );
-
+        
         const data = await response.json();
 
         console.log("FEEDBACK RESPONSE:", data);
