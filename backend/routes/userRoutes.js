@@ -1,6 +1,6 @@
 import express from "express";
 import { getDashboard } from "../controllers/dashboardController.js";
-import { allFeedback } from "../controllers/userController.js";
+import { allInterviews } from "../controllers/userController.js";
 import { authenticate } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
@@ -12,9 +12,9 @@ router.get("/dashboard",
 );
 
 // feedback Route
-router.get("/allfeedback", 
+router.get("/allinterviews", 
     authenticate, 
-    allFeedback
+    allInterviews
 );
 
 export default router;

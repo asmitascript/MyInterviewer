@@ -13,7 +13,7 @@ function InterviewHistory() {
     const fetchInterviewHistory = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8080/user/allfeedback",
+          "http://localhost:8080/user/allinterviews",
           {
             credentials: "include",
           }

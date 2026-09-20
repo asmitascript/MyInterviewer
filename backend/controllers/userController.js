@@ -1,7 +1,7 @@
 import InterviewSession from "../models/interviewSession.js";
 
 
-export const allFeedback = async (req, res) => {
+export const allInterviews = async (req, res) => {
   try {
 
     console.log("===== ALL FEEDBACK =====");

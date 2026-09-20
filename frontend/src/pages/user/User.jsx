@@ -35,7 +35,7 @@ function User() {
           </button>
 
           <NavLink
-            to="/user/interview-history"
+            to="/user/interviews"
             className="sidebar-link"
           >
             <span>📋</span>

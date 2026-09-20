@@ -65,7 +65,7 @@ function App() {
             />
 
             <Route
-              path="interview-history"
+              path="interviews"
               element={<InterviewHistory />}
             />
 
