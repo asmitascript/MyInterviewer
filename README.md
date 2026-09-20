@@ -687,7 +687,7 @@ A formal open-source license may be added in a future release.
 
 B.Tech Computer Science & Engineering
 
-Interested in full-stack development, AI-integrated applications, and software engineering.
+Interested in software engineering, AI-integrated applications and full-stack development.
 
 ---
 
