@@ -1,0 +1,189 @@
+/* =========================
+   Feedback Page
+========================= */
+
+.feedback-page {
+  min-height: 100vh;
+  padding: 50px 8%;
+  background: #07091a;
+  color: #f5f7ff;
+  font-family: "Inter", sans-serif;
+}
+
+
+/* =========================
+   Header
+========================= */
+
+.feedback-page h1 {
+  text-align: center;
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 35px;
+  letter-spacing: -0.5px;
+}
+
+
+/* =========================
+   Overall Score
+========================= */
+
+.feedback-page > h2 {
+  width: fit-content;
+  margin: 0 auto 40px;
+  padding: 22px 45px;
+  border: 1px solid #252a4a;
+  border-radius: 18px;
+  background: #0d1026;
+  font-size: 1.8rem;
+  font-weight: 600;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================
+   Score Cards
+========================= */
+
+.feedback-page > p {
+  display: inline-block;
+  width: calc(33.333% - 18px);
+  margin: 0 20px 35px 0;
+  padding: 25px 20px;
+  box-sizing: border-box;
+
+  background: #0d1026;
+  border: 1px solid #252a4a;
+  border-radius: 16px;
+
+  text-align: center;
+  font-size: 1rem;
+  color: #b8bfdc;
+
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.feedback-page > p:nth-of-type(3) {
+  margin-right: 0;
+}
+
+.feedback-page > p:hover {
+  transform: translateY(-3px);
+  border-color: #3b4270;
+}
+
+
+/* =========================
+   Section Headings
+========================= */
+
+.feedback-page h3 {
+  margin-top: 45px;
+  margin-bottom: 18px;
+
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+
+/* =========================
+   Lists
+========================= */
+
+.feedback-page ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  background: #0d1026;
+  border: 1px solid #252a4a;
+  border-radius: 16px;
+
+  overflow: hidden;
+}
+
+.feedback-page li {
+  padding: 16px 20px;
+  color: #c7cce2;
+  border-bottom: 1px solid #1d2140;
+  line-height: 1.6;
+}
+
+.feedback-page li:last-child {
+  border-bottom: none;
+}
+
+
+/* =========================
+   Summary
+========================= */
+
+.feedback-page h3 + p {
+  margin: 0;
+  padding: 22px;
+
+  background: #0d1026;
+  border: 1px solid #252a4a;
+  border-radius: 16px;
+
+  color: #c7cce2;
+  line-height: 1.7;
+}
+
+
+/* =========================
+   Loading / Error
+========================= */
+
+.feedback-page + p,
+.feedback-page p {
+  line-height: 1.6;
+}
+
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 768px) {
+  .feedback-page {
+    padding: 35px 5%;
+  }
+
+  .feedback-page h1 {
+    font-size: 2rem;
+  }
+
+  .feedback-page > h2 {
+    font-size: 1.5rem;
+    padding: 18px 30px;
+  }
+
+  .feedback-page > p {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .feedback-page {
+    padding: 25px 4%;
+  }
+
+  .feedback-page h1 {
+    font-size: 1.7rem;
+  }
+
+  .feedback-page > h2 {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .feedback-page h3 {
+    font-size: 1.1rem;
+  }
+}

@@ -204,7 +204,7 @@ function InterviewHistory() {
               className="view-button"
               onClick={() =>
                 navigate(
-                  `/user/interview-history/${interview.sessionId}`
+                  `/feedback/${interview.sessionId}`
                 )
               }
             >

@@ -23,11 +23,10 @@ router.get("/:sessionId",
   authenticate, 
   validateParams(sessionIdSchema),
   authorised, 
-  getInterview);
+  getInterview
+);
 
-// Setup Interview
 
-// router.get("/setup");
 // Start Interview
 router.post("/start", 
   authenticate, 

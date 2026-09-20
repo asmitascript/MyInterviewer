@@ -6,7 +6,6 @@ function InterviewSetup() {
   const navigate = useNavigate();
 
   // Store user inputs
-  const [userId, setUserId] = useState("");
   const [role, setRole] = useState("");
   const [experience, setExperience] = useState("");
   const [difficulty, setDifficulty] = useState("medium");
@@ -14,6 +13,8 @@ function InterviewSetup() {
 
   const handleStartInterview = async () => {
     try {
+      console.log("clicked");
+
       const response = await fetch(
         "http://localhost:8080/api/interview/start",
         {
@@ -21,8 +22,8 @@ function InterviewSetup() {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
           body: JSON.stringify({
-            userId,
             role,
             experience,
             difficulty,
@@ -75,13 +76,6 @@ function InterviewSetup() {
 
           <div className="form-group">
             <label>What role are you applying for?</label>
-
-            <input
-              type="text"
-              placeholder="e.g. userId"
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
-            />
 
             <input
               type="text"
