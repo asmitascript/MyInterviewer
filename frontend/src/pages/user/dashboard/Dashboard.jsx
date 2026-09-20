@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import "./Dashboard.css";
 
 function Dashboard() {
 
-  const { userId } = useParams();
-
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const isNewUser = dashboardData?.totalInterviews === 0;
 
   useEffect(() => {
     const fetchDashboard = async () => {
@@ -24,19 +23,21 @@ function Dashboard() {
 
         if (data.success) {
           setDashboardData(data.dashboard);
-        }else{
+        } else {
           setError(data.message);
         }
-      }catch (error) {
+
+      } catch (error) {
         console.error("Failed to fetch dashboard:", error);
         setError("Unable to load dashboard data.");
+
       } finally {
         setLoading(false);
       }
     };
 
     fetchDashboard();
-  }, [userId]);
+  }, []);
 
   if (loading) {
     return (
@@ -46,23 +47,42 @@ function Dashboard() {
     );
   }
 
-  if (error) {
+
+  if (isNewUser || error) {
     return (
       <div className="dashboard-page">
-        <h2>{error}</h2>
-        <p>Complete your first interview to see your dashboard statistics.</p>
+
+        <div className="dashboard-header">
+
+          <div>
+            <h1>
+              Welcome back, {dashboardData?.firstName} 👋
+            </h1>
+
+            <p>
+              You haven't completed any interviews yet.
+              Complete your first interview to see your performance statistics.
+            </p>
+          </div>
+
+          <button className="start-interview-btn">
+            + Start New Interview
+          </button>
+
+        </div>
+
       </div>
     );
   }
 
-  return (
+   return (
     <div className="dashboard-page">
 
       {/* Header */}
       <div className="dashboard-header">
 
         <div>
-          <h1>Welcome back, { userId } 👋</h1>
+          <h1>Welcome back, {dashboardData?.firstName} 👋</h1>
 
           <p>
             Track your interview performance and keep improving.

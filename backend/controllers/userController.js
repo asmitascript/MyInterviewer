@@ -1,17 +1,31 @@
 import InterviewSession from "../models/interviewSession.js";
+
+
 export const allFeedback = async (req, res) => {
   try {
-    const { userId } = req.params;
 
-    console.log("USER ID FROM URL:", userId);
+    console.log("===== ALL FEEDBACK =====");
+    console.log("User:", req.user._id);
+    console.log("Status query: Completed");
 
     const interviews = await InterviewSession.find({
-      userId: userId,
+      userId: req.user._id,
       status: "Completed",
     });
 
-    console.log("INTERVIEWS FOUND:", interviews.length);
-    console.log("INTERVIEWS:", interviews);
+    console.log("Count:", interviews.length);
+    console.log(
+      "IDs:",
+      interviews.map((i) => i._id.toString())
+    );
+
+    // const interviews = await InterviewSession.find({
+    //   userId,
+    //   status: "Completed",
+    // }).sort({ createdAt: -1});
+
+    // console.log("INTERVIEWS FOUND:", interviews.length);
+    // console.log("INTERVIEWS:", interviews);
 
     if (interviews.length === 0) {
       return res.status(404).json({

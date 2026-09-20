@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./interviewHistory.css";
 
 function InterviewHistory() {
   const navigate = useNavigate();
-  const { userId } = useParams();
 
   const [interviews, setInterviews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +13,10 @@ function InterviewHistory() {
     const fetchInterviewHistory = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/${userId}/allfeedback`
+          "http://localhost:8080/user/allfeedback",
+          {
+            credentials: "include",
+          }
         );
 
         const data = await response.json();
@@ -34,19 +36,17 @@ function InterviewHistory() {
       }
     };
 
-    if (userId) {
-      fetchInterviewHistory();
-    }
-  }, [userId]);
+    fetchInterviewHistory();
+  }, []);
 
-  // Loading state
-  if (loading) {
-    return (
-      <div className="history-page">
-        <h2>Loading interview history...</h2>
-      </div>
-    );
-  }
+  // // Loading state
+  // if (loading) {
+  //   return (
+  //     <div className="history-page">
+  //       <h2>Loading interview history...</h2>
+  //     </div>
+  //   );
+  // }
 
   // Error state
   if (error) {

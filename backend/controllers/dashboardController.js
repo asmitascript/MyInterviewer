@@ -13,10 +13,26 @@ export const getDashboard = async (req, res) => {
 
     console.log("Dashboard Interviews:", interviews.length);
 
+    // if (interviews.length === 0) {
+    //   return res.status(404).json({
+    //     success: false,
+    //     message: "No completed interviews found",
+    //   });
+    // }
     if (interviews.length === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "No completed interviews found",
+      return res.status(200).json({
+        success: true,
+        dashboard: {
+          firstName: req.user.firstName,
+          lastName: req.user.lastName,
+          totalInterviews: 0,
+          averageScore: null,
+          bestScore: null,
+          latestScore: null,
+          performance: [],
+          strengths: [],
+          improvements: [],
+        },
       });
     }
 
@@ -67,6 +83,10 @@ export const getDashboard = async (req, res) => {
       success: true,
 
       dashboard: {
+        firstName: req.user.firstName,
+
+        lastName: req.user.lastName,
+
         totalInterviews,
 
         averageScore: Number(averageScore.toFixed(1)),

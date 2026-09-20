@@ -28,11 +28,8 @@ app.use(cookieParser());
 // Interview Routes
 app.use("/api/interview", interviewRoutes);
 
-// Feedback Routes
-app.use("/", userRoutes);
-
-// Dashboard Routes
-app.use("/user", dashboardRoutes);
+// User Routes
+app.use("/user", userRoutes);
 
 // authentication
 app.use("/auth", authRoutes);
