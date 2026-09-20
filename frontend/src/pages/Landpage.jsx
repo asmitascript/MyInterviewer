@@ -35,7 +35,7 @@ function Landpage() {
         className="start-free-interview"
         onClick={() => {
           console.log("Navigating...");
-          navigate("/interview");
+          navigate("/interview/setup");
         }}
       >
         Start Free Interview
