@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Landpage from "./pages/Landpage";
 import Footer from "./components/Footer";
+import ProtectedRoutes from "./components/ProtectedRoutes"
 
 import Interview from "./Interview/Interview";
 
@@ -57,18 +58,20 @@ function App() {
           element={<Feedback/>}>
             </Route>
 
-          <Route path="/user" element={<User />}>
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/user" element={<User />}>
 
-            <Route
-              path="dashboard"
-              element={<Dashboard />}
-            />
+              <Route
+                path="dashboard"
+                element={<Dashboard />}
+              />
 
-            <Route
-              path="interviews"
-              element={<InterviewHistory />}
-            />
+              <Route
+                path="interviews"
+                element={<InterviewHistory />}
+              />
 
+            </Route>
           </Route>
 
           <Route

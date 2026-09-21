@@ -376,7 +376,7 @@ function Feedback() {
 
       <button
         className="back-history-btn"
-        onClick={() => navigate("/user/interview-history")}
+        onClick={() => navigate("/user/interviews")}
       >
         ← Back to Interview History
       </button>
