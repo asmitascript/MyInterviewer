@@ -3,6 +3,18 @@ import "./User.css";
 
 function User() {
   const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await fetch("http://localhost:8080/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      navigate("/");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   return (
     <div className="user-layout">
@@ -49,6 +61,10 @@ function User() {
             <span>⚙️</span>
             Settings
           </NavLink>
+
+          <button onClick={handleLogout}>
+            Logout
+          </button>
 
         </nav>
 
