@@ -15,6 +15,7 @@ const generateQuestion = async ({
   difficulty,
   interviewType,
   previousQuestions = [],
+  previousAnalysis = [],
 }) => {
   try {
     const prompt = questionPrompt({
@@ -23,10 +24,11 @@ const generateQuestion = async ({
       difficulty,
       interviewType,
       previousQuestions,
+      previousAnalysis,
     });
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash-lite",
+      model: "gemini-3.8-flash",
       contents: prompt,
     });
 

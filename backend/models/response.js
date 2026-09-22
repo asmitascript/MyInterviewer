@@ -60,7 +60,12 @@ const analysisSchema = new mongoose.Schema(
       default: false,
     },
 
-    summary: {
+    followUpTopic: {
+      type: String,
+      default: "",
+    },
+
+    analysisSummary: {
       type: String,
     },
   },
@@ -88,7 +93,7 @@ const responseSchema = new mongoose.Schema(
 
     questionType: {
       type: String,
-      enum: ["Normal", "FollowUp"],
+      enum: ["Normal", "Followup"],
       default: "Normal",
     },
 

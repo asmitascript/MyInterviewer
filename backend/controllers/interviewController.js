@@ -2,7 +2,8 @@ import InterviewSession from "../models/interviewSession.js";
 
 import generateQuestion from "../utils/generateQuestions.js";
 import generateAnalysis from "../utils/analyseAnswers.js";
-import generateFinalFeedback from "../utils/generateFinalFeedback.js"
+import generateFollowupQuestion from "../utils/generateFollowups.js";
+import generateFinalFeedback from "../utils/generateFinalFeedback.js";
 
 
 
@@ -36,6 +37,7 @@ export const startInterview = async (req, res) => {
       difficulty,
       interviewType,
       previousQuestions: [],
+      previousAnalysis: [],
     });
 
     // Create interview session
@@ -61,7 +63,7 @@ export const startInterview = async (req, res) => {
       sessionId: interview._id,
       questionNumber: 1,
       question: question.question,
-    })
+    });
 
     return res.status(201).json({
       success: true,
@@ -80,14 +82,16 @@ export const startInterview = async (req, res) => {
   }
 };
 
-// Submit Answer
+
+
+// SUBMIT ANSWER
 export const submitAnswer = async (req, res) => {
   try {
 
     console.log("🔥 SUBMIT ANSWER ROUTE HIT");
     console.log("params:", req.params);
     console.log("body:", req.body);
-    
+
     const { sessionId } = req.params;
     const { answer } = req.body;
 
@@ -136,16 +140,14 @@ export const submitAnswer = async (req, res) => {
     // Save analysis
     currentResponse.analysis = analysis;
 
-    // Check Limit 
+    // Check Limit
     // interview.maxQuestions
-    if(interview.currentQuestionNumber >= 3){
-      const finalFeedback = await generateFinalFeedback({
-        role: interview.role,
-        experience: interview.experience,
-        difficulty: interview.difficulty,
-        interviewType: interview.interviewType,
-        responses: interview.responses
-      });
+    if (interview.currentQuestionNumber >= 3) {
+
+      // Save latest answer and analysis before generating final feedback
+      await interview.save();
+
+      const finalFeedback = await generateFinalFeedback(interview);
 
       interview.finalFeedback = finalFeedback;
       interview.status = "Completed";
@@ -158,29 +160,61 @@ export const submitAnswer = async (req, res) => {
         interviewCompleted: true,
         finalFeedback,
       });
-
     }
 
-    // Generate Next Question
-    const nextQuestion = await generateQuestion({
-      role: interview.role,
-      experience: interview.experience,
-      difficulty: interview.difficulty,
-      interviewType: interview.interviewType,
-      previousQuestions: interview.responses.map(r => r.question),
-    });
-    
-    // Increament Question Number 
+
+    let nextQuestion;
+    let nextQuestionType = "Normal";
+
+
+    // Decide whether a follow-up is appropriate
+    // Only allow one follow-up for the same topic.
+    if (
+      currentResponse.questionType === "Normal" &&
+      analysis.needsFollowUp &&
+      analysis.missingPoints &&
+      analysis.missingPoints.length > 0
+    ) {
+
+      nextQuestion = await generateFollowupQuestion({
+        question: currentResponse.question,
+        answer: currentResponse.answer,
+        missingPoints: analysis.missingPoints,
+      });
+
+      nextQuestionType = "Followup";
+
+    } else {
+
+      // Generate a new interview question
+      nextQuestion = await generateQuestion({
+        role: interview.role,
+        experience: interview.experience,
+        difficulty: interview.difficulty,
+        interviewType: interview.interviewType,
+        previousQuestions: interview.responses.map(
+          (response) => response.question
+        ),
+        previousAnalysis: interview.responses
+          .filter((response) => response.analysis)
+          .map((response) => response.analysis),
+      });
+    }
+
+
+    // Increment Question Number
     interview.currentQuestionNumber++;
 
-    // Push to DB
+
+    // Push next question to DB
     interview.responses.push({
       order: interview.currentQuestionNumber,
       question: nextQuestion.question,
       answer: "",
-      questionType: "Normal",
-      analysis: null
+      questionType: nextQuestionType,
+      analysis: null,
     });
+
 
     // Save interview session
     await interview.save();
@@ -190,7 +224,7 @@ export const submitAnswer = async (req, res) => {
       interviewCompleted: false,
       questionNumber: interview.currentQuestionNumber,
       question: nextQuestion.question,
-    });    
+    });
 
   } catch (err) {
     console.error("Submit Answer Error:", err);
@@ -204,16 +238,18 @@ export const submitAnswer = async (req, res) => {
 };
 
 
-// Get Interview
-export const getInterview = async(req, res) =>{
+
+// GET INTERVIEW
+export const getInterview = async (req, res) => {
   const { sessionId } = req.params;
+
   const interview = await InterviewSession.findById(sessionId);
-  
-  // validations
-  if(!interview){
+
+  // Validations
+  if (!interview) {
     return res.status(404).json({
       success: false,
-      message: "Interview Not Found"
+      message: "Interview Not Found",
     });
   }
 
@@ -224,27 +260,28 @@ export const getInterview = async(req, res) =>{
     interviewType: interview.interviewType,
     status: interview.status,
     totalQuestions: interview.currentQuestionNumber,
+
     responses: interview.responses.map((response) => ({
       order: response.order,
       question: response.question,
       answer: response.answer,
-      // overallScore: response.overallScore,
     })),
+
     overallFinalFeedback: {
-    // overallScore: interview.finalFeedback.overallScore,
-    technicalScore: interview.finalFeedback.technicalScore,
-    communicationScore: interview.finalFeedback.communicationScore,
-    grammarScore: interview.finalFeedback.grammarScore,
-    strengths: interview.finalFeedback.strengths,
-    improvements: interview.finalFeedback.improvements,
-    summary: interview.finalFeedback.summary,
-    suggestedPreparation: interview.finalFeedback.suggestedPreparation,
-  },
+      technicalScore: interview.finalFeedback.technicalScore,
+      communicationScore: interview.finalFeedback.communicationScore,
+      grammarScore: interview.finalFeedback.grammarScore,
+      strengths: interview.finalFeedback.strengths,
+      improvements: interview.finalFeedback.improvements,
+      summary: interview.finalFeedback.summary,
+      suggestedPreparation: interview.finalFeedback.suggestedPreparation,
+    },
   });
-}
+};
 
 
-// Get Final Feedback
+
+// GET FINAL FEEDBACK
 export const getFeedback = async (req, res) => {
   try {
     console.log("🔥 GET FEEDBACK ROUTE HIT");
@@ -300,7 +337,7 @@ export const getFeedback = async (req, res) => {
 
     return res.status(500).json({
       success: false,
-      message: "Failed to get feedback.",
+      message: "Failed to get final feedback.",
       error: err.message,
     });
   }

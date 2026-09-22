@@ -14,12 +14,15 @@ const generateFinalFeedback = async (interview) => {
     const interviewHistory = interview.responses
       .map(
         (response, index) => `
-Question ${index + 1}: ${response.question}
+Interview Exchange ${index + 1}:
 
-Answer:
+Question:
+${response.question}
+
+Candidate Answer:
 ${response.answer}
 
-Analysis:
+Answer Analysis:
 ${JSON.stringify(response.analysis, null, 2)}
 `
       )
@@ -31,7 +34,7 @@ ${JSON.stringify(response.analysis, null, 2)}
     });
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash-lite",
+      model: "gemini-3.8-flash",
       contents: prompt,
     });
 
