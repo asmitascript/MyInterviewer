@@ -535,23 +535,29 @@ The frontend will then be available through the local development server.
 * [x] JWT authentication
 * [x] Complete User dashboard 
 * [x] Performance analytics
+* [x] Protected routes
 
 ### 🚧 In Progress
 
-* [ ] Protected routes
-* [ ] Email verification
-* [ ] Password reset
+* [ ] Core AI advancement
+* [ ] Answer specific scoring
+* [ ] Answer specific suggesstions
+* [ ] Duration based interview sessions
 * [ ] User settings
 
 ### 🔮 Planned
 
+* [ ] Email verification
+* [ ] Password reset
 * [ ] Speech-to-text interview answers
 * [ ] Voice-based interview interaction
 * [ ] More advanced performance analytics
+* [ ] Personalized preparation recommendations
 * [ ] Interview performance trends
 * [ ] Improved AI personalization
 * [ ] More interview categories
-* [ ] Personalized preparation recommendations
+
+
 
 ---
 
