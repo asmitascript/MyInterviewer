@@ -10,6 +10,7 @@ export function MyProvider({ children }) {
   // Authentication state
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [sessionExpired, setSessionExpired] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -20,9 +21,17 @@ export function MyProvider({ children }) {
 
         if (response.ok) {
           const data = await response.json();
+
           console.log("Authenticated user:", data.user);
-          
+
           setUser(data.user);
+          setSessionExpired(false);
+        } else if (response.status === 401) {
+          // User is not authenticated
+          setUser(null);
+
+          // Tell the app that authentication failed
+          setSessionExpired(true);
         }
       } catch (error) {
         console.error("Authentication check failed:", error);
@@ -50,6 +59,9 @@ export function MyProvider({ children }) {
         setUser,
 
         loading,
+
+        sessionExpired,
+        setSessionExpired,
       }}
     >
       {children}

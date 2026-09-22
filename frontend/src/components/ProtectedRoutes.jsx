@@ -3,14 +3,22 @@ import { useContext } from "react";
 import { MyContext } from "../context/MyContext";
 
 function ProtectedRoute() {
-  const { user, loading } = useContext(MyContext);
+  const { user, loading, sessionExpired } = useContext(MyContext);
 
   if (loading) {
     return null;
   }
 
   if (!user) {
-    return <Navigate to="/auth/login" replace />;
+    return (
+      <Navigate
+        to="/auth/login"
+        replace
+        state={{
+          sessionExpired: sessionExpired,
+        }}
+      />
+    );
   }
 
   return <Outlet />;
