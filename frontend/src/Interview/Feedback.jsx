@@ -7,9 +7,12 @@ function Feedback() {
   const { sessionId } = useParams();
   const navigate = useNavigate();
 
-  const [finalFeedback, setFinalFeedback] = useState(null);
+  const [feedbackData, setFeedbackData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  // Stores which question is currently expanded
+  const [expandedQuestions, setExpandedQuestions] = useState({});
 
   useEffect(() => {
     const getFeedback = async () => {
@@ -29,7 +32,7 @@ function Feedback() {
           throw new Error(data.message || "Failed to get feedback");
         }
 
-        setFinalFeedback(data.finalFeedback);
+        setFeedbackData(data);
       } catch (err) {
         console.error("Get Feedback Error:", err);
         setError(err.message);
@@ -41,6 +44,13 @@ function Feedback() {
     getFeedback();
   }, [sessionId]);
 
+  const toggleQuestion = (index) => {
+    setExpandedQuestions((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
+
   if (loading) {
     return <p>Loading feedback...</p>;
   }
@@ -49,9 +59,11 @@ function Feedback() {
     return <p>Failed to load feedback: {error}</p>;
   }
 
-  if (!finalFeedback) {
+  if (!feedbackData || !feedbackData.finalFeedback) {
     return <p>No feedback available.</p>;
   }
+
+  const { finalFeedback, responses = [], interview } = feedbackData;
 
   return (
     <div className="feedback-page">
@@ -318,6 +330,285 @@ function Feedback() {
         <p>
           {finalFeedback.summary}
         </p>
+
+      </section>
+
+
+      {/* =========================
+          QUESTION-WISE REVIEW
+      ========================= */}
+
+      <section className="feedback-section question-review-section">
+
+        <div className="section-heading">
+
+          <div>
+            <span className="feedback-eyebrow">
+              DETAILED REVIEW
+            </span>
+
+            <h2>Question-wise Analysis</h2>
+
+            <p>
+              Review your answers and the AI analysis for each question.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div className="question-review-list">
+
+          {responses.map((response, index) => {
+
+            const analysis = response.analysis || {};
+            const isExpanded = expandedQuestions[index];
+
+            return (
+              <div
+                className={`question-review-card ${
+                  isExpanded ? "expanded" : ""
+                }`}
+                key={index}
+              >
+
+                {/* Question Header */}
+
+                <button
+                  type="button"
+                  className="question-review-header"
+                  onClick={() => toggleQuestion(index)}
+                >
+
+                  <div className="question-review-title">
+
+                    <span className="question-number">
+                      {String(response.order).padStart(2, "0")}
+                    </span>
+
+                    <div>
+                      <span className="question-label">
+                        QUESTION {String(response.order).padStart(2, "0")}
+                      </span>
+
+                      <h3>
+                        {response.question}
+                      </h3>
+                    </div>
+
+                  </div>
+
+
+                  <span
+                    className={`question-arrow ${
+                      isExpanded ? "rotated" : ""
+                    }`}
+                  >
+                    ↓
+                  </span>
+
+                </button>
+
+
+                {/* Expanded Details */}
+
+                {isExpanded && (
+
+                  <div className="question-review-details">
+
+                    {/* User Answer */}
+
+                    <div className="answer-block">
+
+                      <span className="detail-label">
+                        YOUR ANSWER
+                      </span>
+
+                      <p className="user-answer">
+                        {response.answer || "No answer provided."}
+                      </p>
+
+                    </div>
+
+
+                    {/* Answer Scores */}
+
+                    <div className="answer-analysis">
+
+                      <span className="detail-label">
+                        ANSWER ANALYSIS
+                      </span>
+
+
+                      <div className="answer-score-grid">
+
+                        <div className="answer-score-item">
+                          <span>Overall</span>
+                          <strong>
+                            {analysis.overallScore ?? 0}
+                            <small>/10</small>
+                          </strong>
+                        </div>
+
+                        <div className="answer-score-item">
+                          <span>Technical</span>
+                          <strong>
+                            {analysis.technicalScore ?? 0}
+                            <small>/10</small>
+                          </strong>
+                        </div>
+
+                        <div className="answer-score-item">
+                          <span>Communication</span>
+                          <strong>
+                            {analysis.communicationScore ?? 0}
+                            <small>/10</small>
+                          </strong>
+                        </div>
+
+                        <div className="answer-score-item">
+                          <span>Grammar</span>
+                          <strong>
+                            {analysis.grammarScore ?? 0}
+                            <small>/10</small>
+                          </strong>
+                        </div>
+
+                        <div className="answer-score-item">
+                          <span>Clarity</span>
+                          <strong>
+                            {analysis.clarityScore ?? 0}
+                            <small>/10</small>
+                          </strong>
+                        </div>
+
+                        <div className="answer-score-item">
+                          <span>Relevance</span>
+                          <strong className="relevance-value">
+                            {analysis.relevance || "N/A"}
+                          </strong>
+                        </div>
+
+                      </div>
+
+                    </div>
+
+
+                    {/* Strengths */}
+
+                    {analysis.strengths?.length > 0 && (
+
+                      <div className="answer-detail-block">
+
+                        <h4>Strengths</h4>
+
+                        <ul>
+                          {analysis.strengths.map((item, itemIndex) => (
+                            <li key={itemIndex}>
+                              <span>✓</span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+
+                      </div>
+
+                    )}
+
+
+                    {/* Weaknesses */}
+
+                    {analysis.weaknesses?.length > 0 && (
+
+                      <div className="answer-detail-block">
+
+                        <h4>Areas to Improve</h4>
+
+                        <ul>
+                          {analysis.weaknesses.map((item, itemIndex) => (
+                            <li key={itemIndex}>
+                              <span>→</span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+
+                      </div>
+
+                    )}
+
+
+                    {/* Missing Points */}
+
+                    {analysis.missingPoints?.length > 0 && (
+
+                      <div className="answer-detail-block">
+
+                        <h4>Missing Points</h4>
+
+                        <ul>
+                          {analysis.missingPoints.map(
+                            (item, itemIndex) => (
+                              <li key={itemIndex}>
+                                <span>•</span>
+                                {item}
+                              </li>
+                            )
+                          )}
+                        </ul>
+
+                      </div>
+
+                    )}
+
+
+                    {/* Analysis Summary */}
+
+                    {analysis.analysisSummary && (
+
+                      <div className="answer-summary">
+
+                        <span className="detail-label">
+                          AI ANALYSIS
+                        </span>
+
+                        <p>
+                          {analysis.analysisSummary}
+                        </p>
+
+                      </div>
+
+                    )}
+
+
+                    {/* Follow-up */}
+
+                    {analysis.needsFollowUp &&
+                      analysis.followUpTopic && (
+
+                        <div className="follow-up-block">
+
+                          <span className="detail-label">
+                            FOLLOW-UP TOPIC
+                          </span>
+
+                          <p>
+                            {analysis.followUpTopic}
+                          </p>
+
+                        </div>
+
+                      )}
+
+                  </div>
+
+                )}
+
+              </div>
+            );
+          })}
+
+        </div>
 
       </section>
 

@@ -284,9 +284,6 @@ export const getInterview = async (req, res) => {
 // GET FINAL FEEDBACK
 export const getFeedback = async (req, res) => {
   try {
-    console.log("🔥 GET FEEDBACK ROUTE HIT");
-    console.log("params:", req.params);
-
     const { sessionId } = req.params;
 
     // Validation
@@ -297,12 +294,13 @@ export const getFeedback = async (req, res) => {
       });
     }
 
-    // Find interview session
+    // Find interview session belonging to logged-in user
     const interview = await InterviewSession.findOne({
       _id: sessionId,
       userId: req.user._id,
     });
 
+    // Interview not found
     if (!interview) {
       return res.status(404).json({
         success: false,
@@ -328,8 +326,73 @@ export const getFeedback = async (req, res) => {
 
     return res.status(200).json({
       success: true,
+
+      // Session ID
       sessionId: interview._id,
+
+      // =========================
+      // INTERVIEW INFORMATION
+      // =========================
+      interview: {
+        role: interview.role,
+        experience: interview.experience,
+        difficulty: interview.difficulty,
+        interviewType: interview.interviewType,
+        totalQuestions: interview.currentQuestionNumber,
+        startedAt: interview.startedAt,
+        endedAt: interview.endedAt,
+      },
+
+
+      // FINAL FEEDBACK
       finalFeedback: interview.finalFeedback,
+
+
+      // QUESTION-WISE ANALYSIS
+      responses: interview.responses.map((response) => ({
+        order: response.order,
+
+        question: response.question,
+
+        answer: response.answer,
+
+        analysis: {
+          overallScore: response.analysis?.overallScore ?? 0,
+
+          technicalScore:
+            response.analysis?.technicalScore ?? 0,
+
+          communicationScore:
+            response.analysis?.communicationScore ?? 0,
+
+          grammarScore:
+            response.analysis?.grammarScore ?? 0,
+
+          clarityScore:
+            response.analysis?.clarityScore ?? 0,
+
+          relevance:
+            response.analysis?.relevance ?? "",
+
+          strengths:
+            response.analysis?.strengths ?? [],
+
+          weaknesses:
+            response.analysis?.weaknesses ?? [],
+
+          missingPoints:
+            response.analysis?.missingPoints ?? [],
+
+          needsFollowUp:
+            response.analysis?.needsFollowUp ?? false,
+
+          followUpTopic:
+            response.analysis?.followUpTopic ?? "",
+
+          analysisSummary:
+            response.analysis?.analysisSummary ?? "",
+        },
+      })),
     });
 
   } catch (err) {
