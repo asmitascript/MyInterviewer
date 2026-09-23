@@ -23,7 +23,6 @@ const Register = () => {
 
     setLoading(true);
 
-    console.log("REGISTER SUBMITTED");
 
     if (password !== confirmPassword) {
         console.error("Passwords do not match, fill with same password");

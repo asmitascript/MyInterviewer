@@ -1,7 +1,7 @@
 import "./Interview.css";
 
 import { MyContext } from "../context/MyContext";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 
 function Interview() {
@@ -9,6 +9,8 @@ function Interview() {
 
   const { sessionId } = useParams();
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
 
   const {
     question,
@@ -28,9 +30,10 @@ function Interview() {
 
   // Submit answer
   const handleAnswer = async () => {
-    console.log("SUBMIT CLICKED");
-    console.log("sessionId:", sessionId);
-    console.log("answer:", answer);
+
+    if (loading) return;
+
+    setLoading(true);
 
     try {
       const response = await fetch(
@@ -49,14 +52,10 @@ function Interview() {
 
       const data = await response.json();
 
-      console.log("STATUS:", response.status);
-      console.log("RESPONSE:", data);
-
       if (!response.ok) {
         throw new Error(data.message || "Failed to submit answer");
       }
 
-      console.log("NAVIGATING TO:", `/feedback/${sessionId}`);
 
       // Interview completed
     if (data.interviewCompleted) {
@@ -72,6 +71,8 @@ function Interview() {
 
     } catch (err) {
       console.error("Failed to submit answer:", err);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -139,8 +140,9 @@ function Interview() {
           <button
             className="submit"
             onClick={handleAnswer}
+            disabled={loading}
           >
-            Submit Answer
+            {loading ? "Submitting..." : "Submit Answer"}
           </button>
         </div>
 

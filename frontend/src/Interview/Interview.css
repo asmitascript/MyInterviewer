@@ -359,3 +359,7 @@ body {
 .submit:active {
   transform: translateY(0);
 }
+
+.submit:disabled {
+  cursor: not-allowed;
+}
