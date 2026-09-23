@@ -111,3 +111,8 @@ body{
   box-shadow:
     0 6px 25px rgba(124, 92, 252, 0.4);
 }
+
+
+.material-symbols-outlined{
+  margin-top: 2px;
+}
