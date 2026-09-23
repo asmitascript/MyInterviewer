@@ -48,10 +48,12 @@ function App() {
             path="/interview/:sessionId"
             element={<Interview />}
           />
-          <Route
-            path="/interview/setup"
-            element={<InterviewSetup />}
-          />
+          <Route element={<ProtectedRoutes />}>
+            <Route
+              path="/interview/setup"
+              element={<InterviewSetup />}
+            />
+          </Route>
 
           <Route
           path="/feedback/:sessionId"
