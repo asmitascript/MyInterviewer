@@ -4,9 +4,6 @@
 
 body {
   margin: 0;
-
-  font-family: Inter, Arial, sans-serif;
-
   background: #07091a;
   color: white;
 }
@@ -45,8 +42,8 @@ body {
 
 
 .timer-exit{
-    display: flex;
-    justify-content: end;
+  display: flex;
+  justify-content: end;
 }
 
 .timer {
