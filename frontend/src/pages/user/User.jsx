@@ -24,7 +24,7 @@ function User() {
 
         {/* Logo */}
         <div className="sidebar-logo">
-          🤖 MyAIInterviewer
+          <span style={{ color: "#a7a0e1" }}>My</span>Interviewer
         </div>
 
         {/* Navigation */}
@@ -43,7 +43,7 @@ function User() {
             onClick={() => navigate("/interview/setup")}
           >
             <span>🎤</span>
-            New Interview
+              Start New Interview
           </button>
 
           <NavLink

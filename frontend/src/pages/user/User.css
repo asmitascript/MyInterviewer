@@ -45,12 +45,13 @@
 
   display: flex;
   align-items: center;
+  justify-content: center;
 
   padding: 0 24px;
 
   color: #ffffff;
 
-  font-size: 18px;
+  font-size: 23px;
   font-weight: 700;
 
   border-bottom: 1px solid #1f2937;
@@ -121,7 +122,7 @@
 /* Hover */
 
 .sidebar-link:hover {
-  background: #1f2937;
+  background: #1d1734;
 
   color: #ffffff;
 
@@ -132,11 +133,11 @@
 /* Active NavLink */
 
 .sidebar-link.active {
-  background: #2563eb;
+  background: #14112c;
 
   color: #ffffff;
 
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 4px 12px #2f2b52;
 }
 
 

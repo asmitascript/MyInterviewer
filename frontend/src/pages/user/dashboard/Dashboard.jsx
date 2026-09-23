@@ -65,10 +65,6 @@ function Dashboard() {
             </p>
           </div>
 
-          <button className="start-interview-btn">
-            + Start New Interview
-          </button>
-
         </div>
 
       </div>
@@ -88,10 +84,6 @@ function Dashboard() {
             Track your interview performance and keep improving.
           </p>
         </div>
-
-        <button className="start-interview-btn">
-          + Start New Interview
-        </button>
 
       </div>
 
