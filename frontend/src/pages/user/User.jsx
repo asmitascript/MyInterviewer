@@ -34,7 +34,9 @@ function User() {
             to="/user/dashboard"
             className="sidebar-link"
           >
-            <span>🏠</span>
+            <span className="material-symbols-outlined">
+              dashboard
+            </span>
             Dashboard
           </NavLink>
 
@@ -42,7 +44,9 @@ function User() {
             className="sidebar-link"
             onClick={() => navigate("/interview/setup")}
           >
-            <span>🎤</span>
+            <span class="material-symbols-outlined">
+              frame_person_mic
+            </span>
               Start New Interview
           </button>
 
@@ -50,7 +54,9 @@ function User() {
             to="/user/interviews"
             className="sidebar-link"
           >
-            <span>📋</span>
+            <span class="material-symbols-outlined">
+              work_history
+            </span>
             Interview History
           </NavLink>
 
@@ -58,7 +64,9 @@ function User() {
             to="/user/settings"
             className="sidebar-link"
           >
-            <span>⚙️</span>
+            <span class="material-symbols-outlined">
+              settings
+            </span>
             Settings
           </NavLink>
 
