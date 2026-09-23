@@ -3,7 +3,6 @@ import {
   startInterview,
   submitAnswer,
   getFeedback,
-  getInterview
 } from "../controllers/interviewController.js";
 import { authenticate, authorised } from "../middlewares/authMiddleware.js";
 
@@ -16,15 +15,6 @@ import {
 } from "../validations/interviewValidation.js";
 
 const router = express.Router();
-
-// Get Interview 
-// To have a details of each interview
-router.get("/:sessionId", 
-  authenticate, 
-  validateParams(sessionIdSchema),
-  authorised, 
-  getInterview
-);
 
 
 // Start Interview

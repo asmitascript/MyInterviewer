@@ -239,48 +239,6 @@ export const submitAnswer = async (req, res) => {
 
 
 
-// GET INTERVIEW
-export const getInterview = async (req, res) => {
-  const { sessionId } = req.params;
-
-  const interview = await InterviewSession.findById(sessionId);
-
-  // Validations
-  if (!interview) {
-    return res.status(404).json({
-      success: false,
-      message: "Interview Not Found",
-    });
-  }
-
-  res.send({
-    role: interview.role,
-    experience: interview.experience,
-    difficulty: interview.difficulty,
-    interviewType: interview.interviewType,
-    status: interview.status,
-    totalQuestions: interview.currentQuestionNumber,
-
-    responses: interview.responses.map((response) => ({
-      order: response.order,
-      question: response.question,
-      answer: response.answer,
-    })),
-
-    overallFinalFeedback: {
-      technicalScore: interview.finalFeedback.technicalScore,
-      communicationScore: interview.finalFeedback.communicationScore,
-      grammarScore: interview.finalFeedback.grammarScore,
-      strengths: interview.finalFeedback.strengths,
-      improvements: interview.finalFeedback.improvements,
-      summary: interview.finalFeedback.summary,
-      suggestedPreparation: interview.finalFeedback.suggestedPreparation,
-    },
-  });
-};
-
-
-
 // GET FINAL FEEDBACK
 export const getFeedback = async (req, res) => {
   try {
