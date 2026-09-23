@@ -13,6 +13,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [loading, setLoading] = useState(false);
+
   // Error/message
   const [error, setError] = useState("");
 
@@ -28,6 +30,10 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    if (loading) return;
+
+    setLoading(true);
 
     setError("");
 
@@ -123,8 +129,9 @@ const Login = () => {
           <button
             className="auth-button"
             type="submit"
+            disabled={loading}
           >
-            Login
+            {loading ? "directing..." : "Login"}
           </button>
 
         </form>

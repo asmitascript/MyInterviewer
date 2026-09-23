@@ -14,14 +14,20 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleRegister = async (e) => {
+  const [loading, setLoading] = useState(false);
 
+  const handleRegister = async (e) => {
     e.preventDefault();
+
+    if (loading) return;
+
+    setLoading(true);
 
     console.log("REGISTER SUBMITTED");
 
     if (password !== confirmPassword) {
         console.error("Passwords do not match, fill with same password");
+        setLoading(false);
         return;
     }
 
@@ -59,6 +65,8 @@ const Register = () => {
       navigate(`/auth/login`,);    
     } catch (error) {
       console.error("Error in Register:", error);
+    }finally {
+      setLoading(false);
     }
   };
     return (
@@ -135,8 +143,9 @@ const Register = () => {
                     <button
                         className="auth-button"
                         type="submit"
+                        disabled={loading}
                     >
-                        Create Account
+                        {loading ? "Creating Account..." : "Create Account"}
                     </button>
 
                 </form>
