@@ -10,7 +10,6 @@ import cookieParser from "cookie-parser";
 
 import interviewRoutes from "./routes/interviewRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-import dashboardRoutes from "./routes/dashboardRoutes.js";
 import authRoutes from "./routes/authRoutes.js"
 
 dotenv.config();
