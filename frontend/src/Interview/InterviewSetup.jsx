@@ -11,9 +11,13 @@ function InterviewSetup() {
   const [difficulty, setDifficulty] = useState("medium");
   const [interviewType, setInterviewType] = useState("Technical");
 
+  const [loading, setLoading] = useState(false);
+
   const handleStartInterview = async () => {
     try {
-      console.log("clicked");
+      if (loading) return;
+
+      setLoading(true);
 
       const response = await fetch(
         "http://localhost:8080/api/interview/start",
@@ -47,6 +51,8 @@ function InterviewSetup() {
       });    
     } catch (error) {
       console.error("Error starting interview:", error);
+    } finally{
+      setLoading(false);
     }
   };
 
@@ -177,9 +183,10 @@ function InterviewSetup() {
           <button
             className="start-interview"
             onClick={handleStartInterview}
+            disabled={loading}
           >
-            Start Interview
-            <span>→</span>
+            {loading ? "Starting..." : "Start Interview"}
+            {!loading && <span>→</span>}
           </button>
 
         </div>

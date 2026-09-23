@@ -257,6 +257,10 @@ body{
   transition: transform 0.2s ease;
 }
 
+.start-interview:disabled {
+  cursor: not-allowed;
+}
+
 .start-interview:hover {
   transform: translateY(-2px);
 
