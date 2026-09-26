@@ -342,7 +342,7 @@ function Feedback() {
 
         <div className="section-heading">
 
-          <div>
+          <div className="question-section">
             <span className="feedback-eyebrow">
               DETAILED REVIEW
             </span>
