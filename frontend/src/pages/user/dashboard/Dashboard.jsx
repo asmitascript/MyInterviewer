@@ -63,9 +63,9 @@ function Dashboard() {
     return (
       <div className="dashboard-page">
         <div className="dashboard-header">
-          <h1>
-            Welcome back, {dashboardData?.firstName} 👋
-          </h1>
+          <h3>
+            <small>WELCOME BACK</small>, {dashboardData?.firstName}
+          </h3>
 
           <p>
             You haven't completed any interviews yet.
@@ -83,7 +83,9 @@ function Dashboard() {
       <div className="dashboard-header">
 
         <div>
-          <h1>Welcome back, {dashboardData?.firstName} 👋</h1>
+          <h3>
+            <small>WELCOME BACK</small>, {dashboardData?.firstName}
+          </h3>
 
           <p>
             Track your interview performance and keep improving.
