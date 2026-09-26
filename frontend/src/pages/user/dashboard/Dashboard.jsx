@@ -48,25 +48,30 @@ function Dashboard() {
   }
 
 
-  if (isNewUser || error) {
+  if (error) {
     return (
       <div className="dashboard-page">
-
         <div className="dashboard-header">
-
-          <div>
-            <h1>
-              Welcome back, {dashboardData?.firstName} 👋
-            </h1>
-
-            <p>
-              You haven't completed any interviews yet.
-              Complete your first interview to see your performance statistics.
-            </p>
-          </div>
-
+          <h1>Unable to load dashboard</h1>
+          <p>{error}</p>
         </div>
+      </div>
+    );
+  }
 
+  if (isNewUser) {
+    return (
+      <div className="dashboard-page">
+        <div className="dashboard-header">
+          <h1>
+            Welcome back, {dashboardData?.firstName} 👋
+          </h1>
+
+          <p>
+            You haven't completed any interviews yet.
+            Complete your first interview to see your performance statistics.
+          </p>
+        </div>
       </div>
     );
   }
@@ -99,19 +104,22 @@ function Dashboard() {
 
         <div className="stat-card">
           <p>Average Score</p>
-          <h2>{dashboardData?.averageScore}/10</h2>
+          <strong>{dashboardData?.averageScore}</strong><small className="out-of">/10</small>
+          <br />
           <span>Across all interviews</span>
         </div>
 
         <div className="stat-card">
           <p>Best Score</p>
-          <h2>{dashboardData?.bestScore}/10</h2>
+          <strong>{dashboardData?.bestScore}</strong><small className="out-of">/10</small>
+          <br />
           <span>Your highest score</span>
         </div>
 
         <div className="stat-card">
           <p>Latest Score</p>
-          <h2>{dashboardData?.latestScore}/10</h2>
+          <strong>{dashboardData?.latestScore}</strong><small className="out-of">/10</small>
+          <br />
           <span>Most recent interview</span>
         </div>
 
@@ -123,7 +131,7 @@ function Dashboard() {
 
         <div className="section-header">
           <div>
-            <h2>Performance Overview</h2>
+            <h2>PERFORMANCE OVERVIEW</h2>
 
             <p>
               See how your interview scores are progressing.
@@ -180,8 +188,6 @@ function Dashboard() {
         </div>
 
       </div>
-
-
       {/* Bottom Sections */}
       <div className="dashboard-bottom">
 
@@ -189,33 +195,27 @@ function Dashboard() {
         <div className="dashboard-section insight-card">
 
           <div className="section-header">
-            <div>
-              <h2>Your Strengths</h2>
+            <div className="section-icon success">
+              ✓
+            </div>
 
-              <p>
-                Areas where you are performing well.
-              </p>
+            <div>
+              <h2>Strengths</h2>
+              <p>What you performed well in</p>
             </div>
           </div>
 
           <div className="insight-list">
+            {dashboardData?.strengths?.slice(0, 3).map((strength, index) => (
+              <div className="insight-item" key={index}>
+                <div className="insight-icon success">
+                  ✓
+                </div>
 
-          {dashboardData?.strengths?.slice(0, 3).map((strength, index) => (
-            <div className="insight-item" key={index}>
-              <div className="insight-icon success">
-                ✓
+                <p>{strength}</p>
               </div>
-
-              <div>
-                <h3>{strength}</h3>
-                <p>
-                  Identified as a strength from your interview performance.
-                </p>
-              </div>
-            </div>
-          ))}
-
-        </div>
+            ))}
+          </div>
 
         </div>
 
@@ -224,82 +224,34 @@ function Dashboard() {
         <div className="dashboard-section insight-card">
 
           <div className="section-header">
-            <div>
-              <h2>Areas to Improve</h2>
+            <div className="section-icon warning">
+              ↗
+            </div>
 
-              <p>
-                Focus on these areas for better performance.
-              </p>
+            <div>
+              <h2>Areas for Improvement</h2>
+              <p>Where you can improve</p>
             </div>
           </div>
 
           <div className="insight-list">
+            {dashboardData?.improvements?.slice(0, 3).map((improvement, index) => (
+              <div className="insight-item" key={index}>
+                <div className="insight-icon warning">
+                  →
+                </div>
 
-        {dashboardData?.improvements?.slice(0, 3).map((improvement, index) => (
-          <div className="insight-item" key={index}>
-            <div className="insight-icon warning">
-              !
-            </div>
-
-            <div>
-              <h3>{improvement}</h3>
-              <p>
-                Focus on improving this area in your upcoming interviews.
-              </p>
-            </div>
+                <p>{improvement}</p>
+              </div>
+            ))}
           </div>
-        ))}
-
-      </div>
-
-          {/* <div className="insight-list">
-
-            <div className="insight-item">
-              <div className="insight-icon warning">
-                !
-              </div>
-
-              <div>
-                <h3>Communication</h3>
-                <p>
-                  Try to explain your answers more clearly.
-                </p>
-              </div>
-            </div>
-
-            <div className="insight-item">
-              <div className="insight-icon warning">
-                !
-              </div>
-
-              <div>
-                <h3>Answer Structure</h3>
-                <p>
-                  Organize your responses before answering.
-                </p>
-              </div>
-            </div>
-
-            <div className="insight-item">
-              <div className="insight-icon warning">
-                !
-              </div>
-
-              <div>
-                <h3>Filler Words</h3>
-                <p>
-                  Reduce unnecessary words such as "um" and "uh".
-                </p>
-              </div>
-            </div>
-
-          </div> */}
 
         </div>
 
       </div>
 
     </div>
+
   );
 }
 
