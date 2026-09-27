@@ -1,0 +1,154 @@
+.demo-card {
+  width: 100%;
+  max-width: 520px;
+  min-height: 430px;
+  padding: 24px;
+  background: #090b1d;
+  border: 1px solid #292b52;
+  border-radius: 20px;
+  color: #f5f7ff;
+  box-shadow: 0 20px 60px rgba(70, 50, 180, 0.18);
+}
+
+.demo-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #20223e;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.demo-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #7c5cff;
+  box-shadow: 0 0 10px #7c5cff;
+}
+
+.demo-status {
+  margin-left: auto;
+  color: #8c79ff;
+  font-size: 11px;
+}
+
+.demo-content {
+  padding: 24px 4px;
+}
+
+.demo-label {
+  margin-bottom: 8px;
+  color: #8f86b8;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.question-box,
+.answer-box {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  margin-bottom: 20px;
+  border: 1px solid #292b52;
+  border-radius: 12px;
+  background: #0d1025;
+}
+
+.question-box .material-symbols-outlined {
+  color: #9a7cff;
+}
+
+.answer-box .material-symbols-outlined {
+  color: #65a7ff;
+}
+
+.question-box p,
+.answer-box p {
+  margin: 0;
+  color: #d8d9e8;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.candidate-label {
+  margin-top: 4px;
+}
+
+.analyzing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #9a8cff;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.analyzing .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.analysis-box {
+  padding: 16px;
+  border: 1px solid #38316d;
+  border-radius: 12px;
+  background: #11132c;
+}
+
+.analysis-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #a995ff;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.analysis-title .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.scores {
+  display: flex;
+  gap: 12px;
+}
+
+.scores div {
+  flex: 1;
+  padding: 10px;
+  background: #0b0e20;
+  border-radius: 8px;
+}
+
+.scores span {
+  display: block;
+  color: #85869a;
+  font-size: 10px;
+  margin-bottom: 5px;
+}
+
+.scores strong {
+  font-size: 18px;
+  color: #f0edff;
+}
+
+.analysis-success {
+  margin-top: 12px;
+  color: #9f95d8;
+  font-size: 11px;
+}
+
+.demo-footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid #20223e;
+  color: #666985;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}

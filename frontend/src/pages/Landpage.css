@@ -59,6 +59,27 @@ body{
   -webkit-text-fill-color: transparent;
 }
 
+.hero-section {
+  min-height: calc(100vh - 86px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 70px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 50px;
+}
+
+.demo-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-content {
+  flex: 1;
+  text-align: left;
+}
 
 .header2 {
   max-width: 650px;
