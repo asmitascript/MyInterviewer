@@ -124,23 +124,21 @@ body {
 .AI {
   width: 90px;
   height: 90px;
-
   margin: 10px auto 20px;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   border-radius: 50%;
+  background: linear-gradient(145deg, #6366f1, #312e81);
 
-  background:
-    radial-gradient(
-      circle at 35% 30%,
-      #a78bfa,
-      #6366f1 45%,
-      #312e81 100%
-    );
+  border: 2px solid rgba(167, 139, 250, 0.3);
+}
 
-  border: 3px solid rgba(167, 139, 250, 0.25);
-
-  box-shadow:
-    0 0 35px rgba(99, 102, 241, 0.35);
+.AI .material-symbols-outlined {
+  font-size: 50px;
+  color: #ffffff;
 }
 
 

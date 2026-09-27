@@ -128,6 +128,9 @@ function Interview() {
       <div className="sidebar">
 
         <div className="AI">
+          <span className="material-symbols-outlined">
+            for_you
+          </span>
         </div>
 
         <p className="interviewer">
