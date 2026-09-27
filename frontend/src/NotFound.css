@@ -1,0 +1,48 @@
+.not-found {
+  min-height: 100vh;
+  background: #07091a;
+  color: #f5f7ff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  padding: 20px;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.not-found h1 {
+  font-size: 110px;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -5px;
+}
+
+.not-found h2 {
+  font-size: 28px;
+  margin: 5px 0 10px;
+}
+
+.not-found p {
+  color: #9da3b8;
+  font-size: 15px;
+  margin: 0 0 28px;
+}
+
+.not-found button {
+  background: #f5f7ff;
+  color: #07091a;
+  border: none;
+  padding: 11px 22px;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.not-found button:hover {
+  background: #dfe3f0;
+}
