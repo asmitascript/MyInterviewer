@@ -21,6 +21,8 @@ import Dashboard from "./pages/user/dashboard/Dashboard";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
 
+import NotFound from "./Notfound";
+
 
 function App() {
   return (
@@ -86,6 +88,10 @@ function App() {
           <Route
             path="/auth/login" element={<Login/>}
           />
+
+
+
+          <Route path="*" element={<NotFound />} />
 
         </Routes>
 
