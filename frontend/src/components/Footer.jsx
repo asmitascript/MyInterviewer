@@ -23,7 +23,6 @@ function Footer() {
                 <ul>
                     <li>Features</li>
                     <li>How It Works</li>
-                    <li>Pricing</li>
                 </ul>
             </div>
 

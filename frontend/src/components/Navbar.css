@@ -69,6 +69,10 @@ body{
   padding: 10px;
 
   transition: color 0.2s ease;
+
+  display: flex;
+
+  align-items: center;
 }
 
 .signin:hover {
