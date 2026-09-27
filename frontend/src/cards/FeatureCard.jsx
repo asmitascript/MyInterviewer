@@ -5,14 +5,12 @@ function FeatureCard({ icon, title, description }) {
     <div className="feature-card">
 
       <div className="feature-head">
-        <div className="feature-icon">
+        <div className="material-symbols-outlined">
           {icon}
         </div>
         <h3>{title}</h3>
 
       </div>
-      
-
       <p>{description}</p>
 
     </div>

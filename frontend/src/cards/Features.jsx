@@ -3,37 +3,37 @@ import FeatureCard from "./FeatureCard";
 
 const features = [
   {
-    icon: "🤖",
+    icon: "smart_toy",
     title: "AI-Powered Questions",
     description:
       "Adaptive questions tailored to your role, experience level, and target company culture.",
   },
   {
-    icon: "🎯",
+    icon: "rate_review",
     title: "Real-time Feedback",
     description:
       "Instant analysis of your answers with actionable suggestions to improve clarity and impact.",
   },
   {
-    icon: "📊",
+    icon: "analytics",
     title: "Performance Analytics",
     description:
       "Detailed scoring on communication, technical depth, and behavioral competencies.",
   },
   {
-    icon: "🎓",
+    icon: "school",
     title: "Personalized Preparation",
     description:
       "Practice with questions designed specifically around your skills and interview goals.",
   },
   {
-    icon: "🔄",
+    icon: "autorenew",
     title: "Adaptive Interviews",
     description:
       "Questions dynamically adjust based on your previous answers and performance.",
   },
   {
-    icon: "📈",
+    icon: "trending_up",
     title: "Progress Tracking",
     description:
       "Track your improvement over time and identify areas that need more practice.",

@@ -50,16 +50,19 @@
   font-size: 28px;
 }
 
+.material-symbols-outlined {
+  font-size: 30px;
+  font-weight: 400;
+}
+
 .feature-head{
   display: flex;
 
-  align-items: center;
+  align-items: stretch;
   justify-content: space-around;
 }
 
-.feature-head h3{
-  padding-left: 10px;
-}
+
 /* Title */
 
 .feature-card h3 {
@@ -68,7 +71,7 @@
   font-size: 23px;
   font-weight: 650;
 
-  color: #e8eaf6;
+  color: #ebeeff;
 }
 
 
