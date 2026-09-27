@@ -3,6 +3,7 @@ import {
   startInterview,
   submitAnswer,
   getFeedback,
+  getInterview
 } from "../controllers/interviewController.js";
 import { authenticate, authorised } from "../middlewares/authMiddleware.js";
 
@@ -22,6 +23,14 @@ router.post("/start",
   authenticate, 
   validate(startInterviewSchema),
   startInterview,
+);
+
+router.get(
+  "/:sessionId",
+  authenticate,
+  validateParams(sessionIdSchema),
+  authorised,
+  getInterview
 );
 
 // Submit Answer

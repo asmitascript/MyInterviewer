@@ -10,6 +10,8 @@ function Interview() {
   const { sessionId } = useParams();
   const navigate = useNavigate();
 
+  const [interview, setInterview] = useState(null);
+
   const [loading, setLoading] = useState(false);
 
   const {
@@ -21,12 +23,41 @@ function Interview() {
 
 
   // Set first question received from /start
+ // Set first question received from /start
   useEffect(() => {
     if (location.state?.question) {
       setQuestion(location.state.question);
     }
   }, [location.state, setQuestion]);
 
+
+  // Fetch interview details
+  useEffect(() => {
+    const fetchInterview = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/api/interview/${sessionId}`,
+          {
+            credentials: "include",
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || "Failed to fetch interview");
+        }
+
+        console.log("Interview data:", data);
+        setInterview(data);
+
+      } catch (err) {
+        console.error("Failed to fetch interview:", err);
+      }
+    };
+
+    fetchInterview();
+  }, [sessionId]);
 
   // Submit answer
   const handleAnswer = async () => {
@@ -80,8 +111,9 @@ function Interview() {
     <>
       <div className="interview-header">
         <div className="role">
-            ROLE
+          {interview?.role}
         </div>
+
         <div className="timer-exit">
           <div className="timer">
             3:00
@@ -102,7 +134,7 @@ function Interview() {
         </p>
 
         <p className="description">
-          Your AI Interviewer
+          AI Interviewer
         </p>
 
         <div className="tips">

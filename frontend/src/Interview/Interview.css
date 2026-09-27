@@ -40,6 +40,12 @@ body {
   color: #f1f3ff;
 }
 
+.role {
+  color: rgb(221, 212, 235);
+  font-size: 18px;
+  font-weight: 500;
+}
+
 
 .timer-exit{
   display: flex;

@@ -363,3 +363,26 @@ export const getFeedback = async (req, res) => {
     });
   }
 };
+
+
+// For all interview details
+export const getInterview = async (req, res) => {
+  try {
+    const interview = await InterviewSession.findById(req.params.sessionId);
+
+    if (!interview) {
+      return res.status(404).json({
+        message: "Interview not found",
+      });
+    }
+
+    res.status(200).json(interview);
+
+  } catch (error) {
+    console.error("Get interview error:", error);
+
+    res.status(500).json({
+      message: "Failed to fetch interview",
+    });
+  }
+};
