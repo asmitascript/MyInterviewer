@@ -26,7 +26,8 @@ body{
     height: 3rem;
     width: 20rem;
     
-    padding: 6px 16px;
+    /* padding: 6px 16px; */
+    /* margin: 10px 0 ; */
     border-radius: 100px;
     background: rgba(108, 99, 255, 0.15);
     border: 1px solid rgba(108, 99, 255, 0.3);
@@ -42,7 +43,7 @@ body{
 .mainHeader {
   max-width: 900px;
 
-  font-size: 64px;
+  font-size: 60px;
   line-height: 1.1;
   font-weight: 700;
   letter-spacing: -2px;

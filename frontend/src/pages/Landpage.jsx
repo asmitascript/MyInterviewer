@@ -12,9 +12,6 @@ function Landpage() {
   return (
     <>
       <section className="landing-page">
-        <div className="capsule">
-          AI-Powered Interview Platform
-        </div>
 
         <section className="hero-section">
 
@@ -23,9 +20,15 @@ function Landpage() {
           </div>
 
           <div className="hero-content">
+            <div className="capsule">
+              AI-Powered Interview Platform
+            </div>
 
             <div className="mainHeader">
-              AI-Powered Interview Practice
+              Ace Every Interview With AI.
+              <br />
+              Practice smarter. Answer confidently. Get interview-ready.
+
             </div>
 
             <div className="header2">
