@@ -13,7 +13,7 @@ function Landpage() {
     <>
       <section className="landing-page">
         <div className="capsule">
-          AI Integrated Interview Platform
+          AI-Powered Interview Platform
         </div>
 
         <section className="hero-section">
