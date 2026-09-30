@@ -44,7 +44,7 @@ function User() {
             className="sidebar-link"
             onClick={() => navigate("/interview/setup")}
           >
-            <span class="material-symbols-outlined">
+            <span className="material-symbols-outlined">
               frame_person_mic
             </span>
               Start New Interview
@@ -54,7 +54,7 @@ function User() {
             to="/user/interviews"
             className="sidebar-link"
           >
-            <span class="material-symbols-outlined">
+            <span className="material-symbols-outlined">
               work_history
             </span>
             Interview History

@@ -3,7 +3,9 @@ import {
   startInterview,
   submitAnswer,
   getFeedback,
-  getInterview
+  getInterview,
+  pauseInterview,
+  resumeInterview
 } from "../controllers/interviewController.js";
 import { authenticate, authorised } from "../middlewares/authMiddleware.js";
 
@@ -51,6 +53,24 @@ router.get("/:sessionId/feedback",
   authenticate,
   validateParams(sessionIdSchema),
   authorised,
-  getFeedback);
+  getFeedback
+);
+
+
+// Pause Interview
+router.patch("/:sessionId/pause",
+  authenticate,
+  validateParams(sessionIdSchema),
+  authorised,
+  pauseInterview
+);
+
+// Resume Interview
+router.patch("/:sessionId/resume",
+  authenticate,
+  validateParams(sessionIdSchema),
+  authorised,
+  resumeInterview
+);
 
 export default router;

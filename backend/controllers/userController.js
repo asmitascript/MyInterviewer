@@ -6,12 +6,12 @@ export const allInterviews = async (req, res) => {
 
     console.log("===== ALL FEEDBACK =====");
     console.log("User:", req.user._id);
-    console.log("Status query: Completed");
+    console.log("Status query: Completed & Paused");
 
     const interviews = await InterviewSession.find({
       userId: req.user._id,
-      status: "Completed",
-    });
+      status: { $in: ["Completed", "Pause"] }
+    }).sort({ createdAt: -1 });
 
     console.log("Count:", interviews.length);
     console.log(

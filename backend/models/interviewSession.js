@@ -88,7 +88,7 @@ const interviewSessionSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: ["Ongoing", "Pause", "Resume", "Completed", "Terminated"],
+      enum: ["Ongoing", "Pause", "Completed", "Terminated"],
       default: "Ongoing",
     },
 

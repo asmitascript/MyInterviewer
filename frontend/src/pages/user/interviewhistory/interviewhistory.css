@@ -380,6 +380,12 @@ body{
   color: #4ade80;
 }
 
+.status.pause {
+  background: rgba(251, 191, 36, 0.10);
+  border: 1px solid rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+}
+
 
 /* =================================
    DATE

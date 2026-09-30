@@ -39,6 +39,29 @@ function InterviewHistory() {
     fetchInterviewHistory();
   }, []);
 
+  const handleResume = async(sessionId) =>{
+    try{
+
+      const response = await fetch(
+        `http://localhost:8080/api/interview/${sessionId}/resume`,
+        {
+          method: "PATCH",
+          credentials: "include"
+        }
+      );
+
+      const data = await response.json();
+
+      if(!response.ok){
+        throw new Error(data.message || "Failed to resume interview");
+      }
+
+      navigate(`/interview/${sessionId}`);
+    }catch(err){
+      console.log("Failed to resume: ", err.message);
+    }
+  }
+
   // // Loading state
   // if (loading) {
   //   return (
@@ -180,6 +203,19 @@ function InterviewHistory() {
             >
               {interview.status}
             </span>
+            {/* {interview.status === "Completed" ? (
+              <span 
+                className="status-completed"
+              >
+                Completed
+              </span>
+            ) : interview.status === "Pause" ? (
+              <span 
+                className="status-pause"
+              >
+                Paused
+              </span>
+            ) : null} */}
 
 
             {/* Date */}
@@ -200,16 +236,19 @@ function InterviewHistory() {
 
 
             {/* View */}
-            <button
-              className="view-button"
-              onClick={() =>
-                navigate(
-                  `/feedback/${interview.sessionId}`
-                )
-              }
-            >
-              View
-            </button>
+            {interview.status === "Completed" ? (
+              <button 
+                className="view-button"
+                onClick={() => navigate(`/feedback/${interview.sessionId}`)}>
+                View
+              </button>
+            ) : interview.status === "Pause" ? (
+              <button 
+                className="view-button"
+                onClick={() => handleResume(interview.sessionId)}>
+                Resume
+              </button>
+            ) : null}
 
           </div>
 

@@ -4,6 +4,7 @@ import generateQuestion from "../utils/generateQuestions.js";
 import generateAnalysis from "../utils/analyseAnswers.js";
 import generateFollowupQuestion from "../utils/generateFollowups.js";
 import generateFinalFeedback from "../utils/generateFinalFeedback.js";
+import interviewSession from "../models/interviewSession.js";
 
 
 
@@ -383,6 +384,94 @@ export const getInterview = async (req, res) => {
 
     res.status(500).json({
       message: "Failed to fetch interview",
+    });
+  }
+};
+
+// Pause session
+export const pauseInterview = async (req, res) =>{
+  try{
+    const interview = await interviewSession.findById(req.params.sessionId);
+
+    if(!interview){
+      return res.status(404).json({
+        message: "Interview not found",
+      });
+    }
+
+    if(interview.status == "Completed"){
+      return res.status(400).json({
+        message: "Interview is already Completed",
+      });
+    }
+
+    if(interview.status === "Paused"){
+      return res.status(400).json({
+        message: "Interview is already Paused",
+      });
+    }
+
+    if(interview.status === "Ongoing"){
+      interview.status = "Pause";
+      await interview.save();
+
+      res.status(200).json({
+        message: "Interview paused"
+      });
+    }
+
+    return res.status(400).json({
+      message: "Invalid interview status",
+    });
+
+  }catch(err){
+    res.status(500).json({
+      error: err.message 
+    });
+  }
+}
+
+
+// Resume Interview
+export const resumeInterview = async (req, res) => {
+  try {
+    const interview = await interviewSession.findById(
+      req.params.sessionId
+    );
+
+    if (!interview) {
+      return res.status(404).json({
+        message: "Interview not found",
+      });
+    }
+
+    if (interview.status === "Completed") {
+      return res.status(400).json({
+        message: "Interview is already Completed",
+      });
+    }
+
+    if (interview.status === "Ongoing") {
+      return res.status(400).json({
+        message: "Interview is already Ongoing",
+      });
+    }
+
+    if (interview.status === "Pause") {
+      interview.status = "Ongoing";
+      await interview.save();
+
+      return res.status(200).json({
+        message: "Interview is Resumed",
+      });
+    }
+
+    return res.status(400).json({
+      message: "Invalid Interview status",
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
     });
   }
 };

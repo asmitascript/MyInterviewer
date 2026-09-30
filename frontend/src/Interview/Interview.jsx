@@ -89,10 +89,10 @@ function Interview() {
 
 
       // Interview completed
-    if (data.interviewCompleted) {
-      navigate(`/feedback/${sessionId}`);
-      return;
-    }
+      if (data.interviewCompleted) {
+        navigate(`/feedback/${sessionId}`);
+        return;
+      }
 
       // Backend generated next question
       setQuestion(data.question);
@@ -106,6 +106,33 @@ function Interview() {
       setLoading(false);
     }
   };
+
+  const handlePause = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/interview/${sessionId}/pause`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to pause interview");
+      }
+
+      navigate("/user/interviews");
+
+    } catch (err) {
+      console.log("Failed to pause the interview:", err.message);
+    }
+  };
+
   return (
     
     <>
@@ -119,8 +146,9 @@ function Interview() {
             3:00
           </div>
 
-          <button className="exit">
-            Exit
+          <button className="exit"
+          onClick={handlePause}>
+            Pause
           </button>
         </div>
       </div>
