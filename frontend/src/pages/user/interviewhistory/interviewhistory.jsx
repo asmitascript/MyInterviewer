@@ -62,6 +62,36 @@ function InterviewHistory() {
     }
   }
 
+  const handleDelete = async (sessionId) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to terminate this interview? Your progress will be deleted."
+    );
+
+    if (!confirmed) return;
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/interview/${sessionId}/delete`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete interview");
+      }
+
+      // Remove it immediately from the UI
+      setInterviews((prev) =>
+        prev.filter((interview) => interview.sessionId !== sessionId)
+      );
+
+    } catch (error) {
+      console.log("Failed to Delete interview:", error.message);
+    }
+  };
+
   // // Loading state
   // if (loading) {
   //   return (
@@ -248,8 +278,16 @@ function InterviewHistory() {
                 onClick={() => handleResume(interview.sessionId)}>
                 Resume
               </button>
-            ) : null}
+            ) : null
+            }
 
+            {/* Delete */}
+            <button
+              className="delete"
+              onClick={() => handleDelete(interview.sessionId)}
+            >
+              Delete
+            </button>
           </div>
 
         ))}

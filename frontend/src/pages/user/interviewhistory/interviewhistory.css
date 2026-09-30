@@ -194,13 +194,14 @@ body{
   display: grid;
 
   grid-template-columns:
-    2.2fr
+    1.8fr
     1fr
     1fr
     0.7fr
     1fr
     1fr
-    0.6fr;
+    0.6fr
+    0.8fr;
 
   align-items: center;
 
@@ -431,6 +432,29 @@ body{
   box-shadow: 0 4px 15px rgba(108, 92, 231, 0.25);
 }
 
+/* =================================
+   DELETE
+================================= */
+.delete{
+  height: 32px;
+
+  padding: 0 12px;
+
+  border: 1px solid #ab0000;
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: #ff7f7f;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
 
 /* =================================
    RESPONSIVE

@@ -475,14 +475,12 @@ export const resumeInterview = async (req, res) => {
   }
 };
 
-
 // TERMINATE/DELETE SESSION
 export const deleteSession = async (req, res) => {
   try {
-    const interview = await interviewSession.findOneAndDelete({
-      _id: req.params.sessionId,
-      userId: req.user._id,
-    });
+    const interview = await interviewSession.findByIdAndDelete(
+      req.params.sessionId
+    );
 
     if (!interview) {
       return res.status(404).json({
@@ -491,7 +489,7 @@ export const deleteSession = async (req, res) => {
     }
 
     return res.status(200).json({
-      message: "Interview session deleted successfully",
+      message: "Interview Deleted successfully",
     });
   } catch (err) {
     return res.status(500).json({
