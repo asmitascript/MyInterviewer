@@ -387,7 +387,7 @@ export const getInterview = async (req, res) => {
   }
 };
 
-// Pause session
+// PAUSE SESSION
 export const pauseInterview = async (req, res) =>{
   try{
     const interview = await interviewSession.findById(req.params.sessionId);
@@ -431,7 +431,7 @@ export const pauseInterview = async (req, res) =>{
 }
 
 
-// Resume Interview
+// RESUME SESSION
 export const resumeInterview = async (req, res) => {
   try {
     const interview = await interviewSession.findById(
@@ -470,6 +470,31 @@ export const resumeInterview = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
+      error: err.message,
+    });
+  }
+};
+
+
+// TERMINATE/DELETE SESSION
+export const deleteSession = async (req, res) => {
+  try {
+    const interview = await interviewSession.findOneAndDelete({
+      _id: req.params.sessionId,
+      userId: req.user._id,
+    });
+
+    if (!interview) {
+      return res.status(404).json({
+        error: "Interview session not found",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Interview session deleted successfully",
+    });
+  } catch (err) {
+    return res.status(500).json({
       error: err.message,
     });
   }

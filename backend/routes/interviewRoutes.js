@@ -5,7 +5,8 @@ import {
   getFeedback,
   getInterview,
   pauseInterview,
-  resumeInterview
+  resumeInterview,
+  deleteSession
 } from "../controllers/interviewController.js";
 import { authenticate, authorised } from "../middlewares/authMiddleware.js";
 
@@ -44,8 +45,6 @@ router.post("/:sessionId/answer",
   submitAnswer
 );
 
-// Terminate the interview
-
 
 // Get Feedback
 // Redirect after an interview complete
@@ -72,5 +71,14 @@ router.patch("/:sessionId/resume",
   authorised,
   resumeInterview
 );
+
+// Terminate the interview
+router.delete("/:sessionId/delete",
+  authenticate,
+  validateParams(sessionIdSchema),
+  authorised,
+  deleteSession
+);
+
 
 export default router;
