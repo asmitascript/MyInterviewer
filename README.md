@@ -536,12 +536,14 @@ The frontend will then be available through the local development server.
 * [x] Complete User dashboard 
 * [x] Performance analytics
 * [x] Protected routes
+* [x] Core AI advancement
+* [x] Answer specific scoring
+* [x] Answer specific suggesstions
+* [x] Pause/Resume interview session
+* [x] Delete Session
 
 ### 🚧 In Progress
 
-* [ ] Core AI advancement
-* [ ] Answer specific scoring
-* [ ] Answer specific suggesstions
 * [ ] Duration based interview sessions
 * [ ] User settings
 
