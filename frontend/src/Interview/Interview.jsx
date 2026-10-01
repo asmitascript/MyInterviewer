@@ -14,6 +14,8 @@ function Interview() {
 
   const [error, setError] = useState("");
 
+  const [isPausing, setIsPausing] = useState(false);
+
   const {
     question,
     setQuestion,
@@ -62,6 +64,27 @@ function Interview() {
 
     fetchInterview();
   }, [sessionId]);
+
+  // Pause interview when leaving the interview page
+  useEffect(() => {
+    return () => {
+      if (isPausing) return;
+
+      fetch(
+        `http://localhost:8080/api/interview/${sessionId}/pause`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          keepalive: true,
+        }
+      ).catch((err) => {
+        console.error("Failed to auto-pause interview:", err);
+      });
+    };
+  }, [sessionId, isPausing]);
 
   // Submit answer
   const handleAnswer = async () => {
@@ -120,6 +143,8 @@ function Interview() {
   };
 
   const handlePause = async () => {
+    setIsPausing(true);
+
     try {
       const response = await fetch(
         `http://localhost:8080/api/interview/${sessionId}/pause`,
@@ -142,6 +167,7 @@ function Interview() {
 
     } catch (err) {
       console.log("Failed to pause the interview:", err.message);
+      setIsPausing(false);
     }
   };
 
