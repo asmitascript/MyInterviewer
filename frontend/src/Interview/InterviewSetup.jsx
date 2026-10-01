@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { MyContext } from "../context/MyContext";
 import "./InterviewSetup.css";
 
 function InterviewSetup() {
   const navigate = useNavigate();
+  const { setAnswer, setQuestion } = useContext(MyContext);
 
   // Store user inputs
   const [role, setRole] = useState("");
@@ -11,9 +13,20 @@ function InterviewSetup() {
   const [difficulty, setDifficulty] = useState("medium");
   const [interviewType, setInterviewType] = useState("Technical");
 
+  const [error, setError] = useState("");
+
   const [loading, setLoading] = useState(false);
 
   const handleStartInterview = async () => {
+    if (!role.trim()) {
+      setError("Please enter the role.");
+      return;
+    }
+
+    if (!experience) {
+      setError("Please select your experience level.");
+      return;
+    }
     try {
       if (loading) return;
 
@@ -41,6 +54,9 @@ function InterviewSetup() {
       if (!response.ok) {
         throw new Error(data.message || "Failed to start interview");
       }
+      
+      setAnswer("");
+      setQuestion(data.question);
 
       // Redirect to Interview page
       navigate(`/interview/${data.sessionId}`, {
@@ -51,6 +67,7 @@ function InterviewSetup() {
       });    
     } catch (error) {
       console.error("Error starting interview:", error);
+      setError("Unable to start the interview. Please try again.");
     } finally{
       setLoading(false);
     }
@@ -87,7 +104,10 @@ function InterviewSetup() {
               type="text"
               placeholder="e.g. Frontend Developer"
               value={role}
-              onChange={(e) => setRole(e.target.value)}
+              onChange={(e) => {
+                setRole(e.target.value);
+                setError("");
+              }}
             />
           </div>
 
@@ -99,7 +119,10 @@ function InterviewSetup() {
 
             <select
               value={experience}
-              onChange={(e) => setExperience(e.target.value)}
+              onChange={(e) => {
+                setExperience(e.target.value);
+                setError("");
+              }}
             >
               <option value="">Select experience level</option>
               <option value="fresher">Fresher</option>
@@ -179,7 +202,7 @@ function InterviewSetup() {
             </div>
           </div>
 
-
+          {error && <p className="error-message">{error}</p>}
           <button
             className="start-interview"
             onClick={handleStartInterview}

@@ -2,17 +2,17 @@ import "./Interview.css";
 
 import { MyContext } from "../context/MyContext";
 import { useContext, useEffect, useState } from "react";
-import { useLocation, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function Interview() {
-  const location = useLocation();
-
   const { sessionId } = useParams();
   const navigate = useNavigate();
 
   const [interview, setInterview] = useState(null);
 
   const [loading, setLoading] = useState(false);
+
+  const [error, setError] = useState("");
 
   const {
     question,
@@ -21,14 +21,18 @@ function Interview() {
     setAnswer,
   } = useContext(MyContext);
 
-
-  // Set first question received from /start
- // Set first question received from /start
+  // Restore current unanswered question from session 
   useEffect(() => {
-    if (location.state?.question) {
-      setQuestion(location.state.question);
+    if (interview?.responses?.length > 0) {
+      const currentResponse = interview.responses.find(
+        (response) => response.answer === ""
+      );
+
+      if (currentResponse) {
+        setQuestion(currentResponse.question);
+      }
     }
-  }, [location.state, setQuestion]);
+  }, [interview, setQuestion]);
 
 
   // Fetch interview details
@@ -61,6 +65,10 @@ function Interview() {
 
   // Submit answer
   const handleAnswer = async () => {
+    if (!answer.trim()) {
+      setError("Please enter an answer before submitting.");
+      return;
+    }
 
     if (loading) return;
 
@@ -94,6 +102,9 @@ function Interview() {
         return;
       }
 
+      // Clear previous error
+      setError("");
+
       // Backend generated next question
       setQuestion(data.question);
 
@@ -102,7 +113,8 @@ function Interview() {
 
     } catch (err) {
       console.error("Failed to submit answer:", err);
-    } finally {
+      setError("Unable to submit your answer. Please try again or pause the interview.");
+    }finally {
       setLoading(false);
     }
   };
@@ -195,9 +207,13 @@ function Interview() {
         <div className="answer">
           <textarea
             value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
+            onChange={(e) => {
+              setAnswer(e.target.value);
+              setError("");
+            }}
           />
         </div>
+        {error && <p className="error-message">{error}</p>}
 
         <div className="submit-area">
           <button
