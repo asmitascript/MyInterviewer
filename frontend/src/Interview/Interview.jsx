@@ -92,7 +92,7 @@ function Interview() {
   // Submit answer
   const handleAnswer = async () => {
     if (!answer.trim()) {
-      setError("Please enter an answer before submitting.");
+      setError("Please answer before submitting.");
       return;
     }
 
