@@ -388,34 +388,34 @@ export const getInterview = async (req, res) => {
 };
 
 // PAUSE SESSION
-export const pauseInterview = async (req, res) =>{
-  try{
+export const pauseInterview = async (req, res) => {
+  try {
     const interview = await interviewSession.findById(req.params.sessionId);
 
-    if(!interview){
+    if (!interview) {
       return res.status(404).json({
         message: "Interview not found",
       });
     }
 
-    if(interview.status == "Completed"){
-      return res.status(400).json({
+    if (interview.status === "Completed") {
+      return res.status(200).json({
         message: "Interview is already Completed",
       });
     }
 
-    if(interview.status === "Paused"){
-      return res.status(400).json({
+    if (interview.status === "Pause") {
+      return res.status(200).json({
         message: "Interview is already Paused",
       });
     }
 
-    if(interview.status === "Ongoing"){
+    if (interview.status === "Ongoing") {
       interview.status = "Pause";
       await interview.save();
 
-      res.status(200).json({
-        message: "Interview paused"
+      return res.status(200).json({
+        message: "Interview paused",
       });
     }
 
@@ -423,12 +423,12 @@ export const pauseInterview = async (req, res) =>{
       message: "Invalid interview status",
     });
 
-  }catch(err){
-    res.status(500).json({
-      error: err.message 
+  } catch (err) {
+    return res.status(500).json({
+      error: err.message,
     });
   }
-}
+};
 
 
 // RESUME SESSION

@@ -1,8 +1,9 @@
 import "./Interview.css";
 
 import { MyContext } from "../context/MyContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
 
 function Interview() {
   const { sessionId } = useParams();
@@ -14,7 +15,7 @@ function Interview() {
 
   const [error, setError] = useState("");
 
-  const [isPausing, setIsPausing] = useState(false);
+  const isPausingRef = useRef(false);
 
   const {
     question,
@@ -68,7 +69,9 @@ function Interview() {
   // Pause interview when leaving the interview page
   useEffect(() => {
     return () => {
-      if (isPausing) return;
+      if (isPausingRef.current) return;
+
+      if (interview?.status !== "Ongoing") return;
 
       fetch(
         `http://localhost:8080/api/interview/${sessionId}/pause`,
@@ -84,7 +87,7 @@ function Interview() {
         console.error("Failed to auto-pause interview:", error);
       });
     };
-  }, [sessionId, isPausing]);
+  }, [sessionId, interview]);
 
   // Submit answer
   const handleAnswer = async () => {
@@ -121,6 +124,7 @@ function Interview() {
 
       // Interview completed
       if (data.interviewCompleted) {
+        isPausingRef.current = true;
         navigate(`/feedback/${sessionId}`);
         return;
       }
@@ -150,7 +154,10 @@ function Interview() {
   };
 
   const handlePause = async () => {
-    setIsPausing(true);
+  console.log("Interview status before pause:", interview?.status);
+
+  // Tell cleanup that this is an intentional pause
+    isPausingRef.current = true;
 
     try {
       const response = await fetch(
@@ -174,14 +181,14 @@ function Interview() {
 
     } catch (err) {
       console.log("Failed to pause the interview:", err.message);
-      setIsPausing(false);
 
-      if (error.name === "TypeError") {
-        setError(
-          "Something went wrong while processing your request. Please try again."
-        );
+      // Allow auto-pause again if manual pause failed
+      isPausingRef.current = false;
+
+      if (err.name === "TypeError") {
+        setError("Unable to connect to the server. Please try again.");
       } else {
-        setError(error.message);
+        setError(err.message);
       }
     }
   };

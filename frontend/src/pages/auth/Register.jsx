@@ -15,6 +15,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -57,6 +58,7 @@ const Register = () => {
       const data = await response.json();
 
       if (!response.ok) {
+        console.log("BACKEND ERROR:", data);
         throw new Error(data.message || "Failed to register");
       }
 
