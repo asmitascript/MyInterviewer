@@ -57,27 +57,39 @@ const Register = () => {
 
       const data = await response.json();
 
-      if (!response.ok) {
-        console.log("BACKEND ERROR:", data);
+    if (!response.ok) {
+        if (data.errors?.length > 0) {
+            const validationError = data.errors[0];
+
+            const messages = {
+            firstName: "First name must be between 3 and 20 characters.",
+            lastName: "Last name must be between 3 and 20 characters.",
+            email: "Please enter a valid email address.",
+            password: "Password must be between 8 and 72 characters.",
+            };
+
+            throw new Error(
+            messages[validationError.field] || validationError.message
+            );
+        }
+
         throw new Error(data.message || "Failed to register");
-      }
+    }
 
       // Redirect to Interview page
       navigate(`/auth/login`,);    
     } catch (error) {
-      console.log("ERROR:", error);
-      console.log("ERROR NAME:", error.name);
-      console.log("ERROR MESSAGE:", error.message);
+        console.log("ERROR:", error);
 
-      if (error.name === "TypeError") {
-        setError(
-          "Something went wrong while processing your request. Please try again."
-        );
-      } else {
-        setError(error.message);
-      }
-    } finally {
-      setLoading(false);
+        if (error.name === "TypeError") {
+            setError(
+            "Unable to connect to the server. Please check your internet connection and try again."
+            );
+        } else {
+            setError(error.message);
+        }
+    }finally{
+        setLoading(false);
     }
   };
 
@@ -95,6 +107,7 @@ const Register = () => {
                     className="auth-form"
                     onSubmit={handleRegister}
                 >
+                    {error && <p className="auth-error">{error}</p>}
 
                     <div className="auth-field">
                         <label htmlFor="firstName">First Name</label>
@@ -134,7 +147,7 @@ const Register = () => {
                         <input
                             id="password"
                             type="password"
-                            placeholder="Enter assword"
+                            placeholder="Enter Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
@@ -146,7 +159,7 @@ const Register = () => {
                         </label>
                         <input
                             id="confirmPassword"
-                            type="text"
+                            type="password"
                             placeholder="Confirm Password"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
