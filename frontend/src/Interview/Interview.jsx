@@ -134,8 +134,8 @@ function Interview() {
       // Clear textarea
       setAnswer("");
 
-    } catch (err) {
-      console.error("Failed to submit answer:", err);
+    } catch (error) {
+      console.error("Failed to submit answer:", error);
 
       if (error.name === "TypeError") {
         setError(
