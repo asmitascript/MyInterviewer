@@ -32,7 +32,7 @@ function Dashboard() {
 
         if (error.name === "TypeError") {
           setError(
-            "Unable to connect. Please check your internet connection and try again."
+            "Unable to connect to the server. Please try again."
           );
         } else {
           setError(error.message);

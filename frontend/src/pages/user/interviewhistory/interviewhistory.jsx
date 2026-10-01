@@ -34,7 +34,7 @@ function InterviewHistory() {
 
         if (error.name === "TypeError") {
           setError(
-            "Unable to connect. Please check your internet connection and try again."
+            "Unable to connect. Please try again."
           );
         } else {
           setError(error.message);
@@ -70,7 +70,7 @@ function InterviewHistory() {
 
       if (error.name === "TypeError") {
         setError(
-          "Unable to connect. Please check your internet connection and try again."
+          "Something went wrong while processing your request. Please try again."
         );
       } else {
         setError(error.message);
@@ -108,7 +108,7 @@ function InterviewHistory() {
 
       if (error.name === "TypeError") {
         setError(
-          "Unable to connect. Please check your internet connection and try again."
+          "Something went wrong while processing your request. Please try again."
         );
       } else {
         setError(error.message);

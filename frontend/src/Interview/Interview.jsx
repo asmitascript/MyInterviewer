@@ -51,14 +51,14 @@ function Interview() {
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.message || "Failed to fetch interview");
+          throw new Error(data.message || "Something went wrong. Please try again.");
         }
 
         console.log("Interview data:", data);
         setInterview(data);
 
-      } catch (err) {
-        console.error("Failed to fetch interview:", err);
+      } catch (error) {
+        console.error("Failed to fetch interview:", error);
       }
     };
 
@@ -80,8 +80,8 @@ function Interview() {
           credentials: "include",
           keepalive: true,
         }
-      ).catch((err) => {
-        console.error("Failed to auto-pause interview:", err);
+      ).catch((error) => {
+        console.error("Failed to auto-pause interview:", error);
       });
     };
   }, [sessionId, isPausing]);
@@ -115,7 +115,7 @@ function Interview() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Failed to submit answer");
+        throw new Error(data.message || "Something went wrong. Please try again.");
       }
 
 
@@ -139,7 +139,7 @@ function Interview() {
 
       if (error.name === "TypeError") {
         setError(
-          "Unable to connect. Please check your internet connection and try again."
+          "Unable to connect to the server. Please try again."
         );
       } else {
         setError(error.message);
@@ -178,7 +178,7 @@ function Interview() {
 
       if (error.name === "TypeError") {
         setError(
-          "Unable to connect. Please check your internet connection and try again."
+          "Something went wrong while processing your request. Please try again."
         );
       } else {
         setError(error.message);

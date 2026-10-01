@@ -29,7 +29,7 @@ function Feedback() {
         console.log("FEEDBACK RESPONSE:", data);
 
         if (!response.ok) {
-          throw new Error(data.message || "Failed to get feedback");
+          throw new Error(data.message || "Something went wrong. Please try again.");
         }
 
         setFeedbackData(data);
@@ -39,7 +39,7 @@ function Feedback() {
 
         if (error.name === "TypeError") {
           setError(
-            "Unable to connect. Please check your internet connection and try again."
+            "Unable to connect to the server. Please try again."
           );
         } else {
           setError(error.message);

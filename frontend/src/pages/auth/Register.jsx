@@ -69,7 +69,7 @@ const Register = () => {
 
       if (error.name === "TypeError") {
         setError(
-          "Unable to connect. Please check your internet connection and try again."
+          "Something went wrong while processing your request. Please try again."
         );
       } else {
         setError(error.message);
