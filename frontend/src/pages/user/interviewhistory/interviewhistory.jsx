@@ -31,6 +31,14 @@ function InterviewHistory() {
       } catch (error) {
         console.error("Interview history error:", error);
         setError(error.message);
+
+        if (error.name === "TypeError") {
+          setError(
+            "Unable to connect. Please check your internet connection and try again."
+          );
+        } else {
+          setError(error.message);
+        }
       } finally {
         setLoading(false);
       }
@@ -57,8 +65,16 @@ function InterviewHistory() {
       }
 
       navigate(`/interview/${sessionId}`);
-    }catch(err){
-      console.log("Failed to resume: ", err.message);
+    }catch(error){
+      console.log("Failed to resume: ", error.message);
+
+      if (error.name === "TypeError") {
+        setError(
+          "Unable to connect. Please check your internet connection and try again."
+        );
+      } else {
+        setError(error.message);
+      }
     }
   }
 
@@ -89,6 +105,14 @@ function InterviewHistory() {
 
     } catch (error) {
       console.log("Failed to Delete interview:", error.message);
+
+      if (error.name === "TypeError") {
+        setError(
+          "Unable to connect. Please check your internet connection and try again."
+        );
+      } else {
+        setError(error.message);
+      }
     }
   };
 

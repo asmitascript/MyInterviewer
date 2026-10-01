@@ -67,8 +67,15 @@ function InterviewSetup() {
       });    
     } catch (error) {
       console.error("Error starting interview:", error);
-      setError("Unable to start the interview. Please try again.");
-    } finally{
+
+      if (error.name === "TypeError") {
+        setError(
+          "Unable to connect. Please check your internet connection and try again."
+        );
+      } else {
+        setError(error.message);
+      }
+    } finally {
       setLoading(false);
     }
   };

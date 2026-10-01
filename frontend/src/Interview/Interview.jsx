@@ -136,7 +136,14 @@ function Interview() {
 
     } catch (err) {
       console.error("Failed to submit answer:", err);
-      setError("Unable to submit your answer. Please try again or pause the interview.");
+
+      if (error.name === "TypeError") {
+        setError(
+          "Unable to connect. Please check your internet connection and try again."
+        );
+      } else {
+        setError(error.message);
+      }
     }finally {
       setLoading(false);
     }
@@ -168,6 +175,14 @@ function Interview() {
     } catch (err) {
       console.log("Failed to pause the interview:", err.message);
       setIsPausing(false);
+
+      if (error.name === "TypeError") {
+        setError(
+          "Unable to connect. Please check your internet connection and try again."
+        );
+      } else {
+        setError(error.message);
+      }
     }
   };
 

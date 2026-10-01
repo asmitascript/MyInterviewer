@@ -36,6 +36,15 @@ function Feedback() {
       } catch (err) {
         console.error("Get Feedback Error:", err);
         setError(err.message);
+
+        if (error.name === "TypeError") {
+          setError(
+            "Unable to connect. Please check your internet connection and try again."
+          );
+        } else {
+          setError(error.message);
+        }
+
       } finally {
         setLoading(false);
       }

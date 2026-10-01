@@ -29,7 +29,14 @@ function Dashboard() {
 
       } catch (error) {
         console.error("Failed to fetch dashboard:", error);
-        setError("Unable to load dashboard data.");
+
+        if (error.name === "TypeError") {
+          setError(
+            "Unable to connect. Please check your internet connection and try again."
+          );
+        } else {
+          setError(error.message);
+        }
 
       } finally {
         setLoading(false);
