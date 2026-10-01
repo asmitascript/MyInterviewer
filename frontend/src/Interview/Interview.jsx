@@ -202,9 +202,9 @@ function Interview() {
         </div>
 
         <div className="timer-exit">
-          <div className="timer">
+          {/* <div className="timer">
             3:00
-          </div>
+          </div> */}
 
           <button className="exit"
           onClick={handlePause}>
