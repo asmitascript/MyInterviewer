@@ -63,11 +63,23 @@ const Register = () => {
       // Redirect to Interview page
       navigate(`/auth/login`,);    
     } catch (error) {
-      console.error("Error in Register:", error);
-    }finally {
+      console.log("ERROR:", error);
+      console.log("ERROR NAME:", error.name);
+      console.log("ERROR MESSAGE:", error.message);
+
+      if (error.name === "TypeError") {
+        setError(
+          "Unable to connect. Please check your internet connection and try again."
+        );
+      } else {
+        setError(error.message);
+      }
+    } finally {
       setLoading(false);
     }
   };
+
+  
     return (
         <div className="auth-page">
             <div className="auth-card">
