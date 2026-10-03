@@ -142,6 +142,7 @@ export const submitAnswer = async (req, res) => {
     currentResponse.analysis = analysis;
 
     // Check Limit
+
     if (interview.currentQuestionNumber >= interview.maxQuestions) {
 
       // Save latest answer and analysis before generating final feedback
