@@ -43,7 +43,7 @@ function Interview() {
     const fetchInterview = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/interview/${sessionId}`,
+          `${import.meta.env.VITE_API_URL}/api/interview/${sessionId}`,
           {
             credentials: "include",
           }
@@ -74,7 +74,7 @@ function Interview() {
       if (interview?.status !== "Ongoing") return;
 
       fetch(
-        `http://localhost:8080/api/interview/${sessionId}/pause`,
+        `${import.meta.env.VITE_API_URL}/api/interview/${sessionId}/pause`,
         {
           method: "PATCH",
           headers: {
@@ -102,7 +102,7 @@ function Interview() {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/api/interview/${sessionId}/answer`,
+        `${import.meta.env.VITE_API_URL}/api/interview/${sessionId}/answer`,
         {
           method: "POST",
           headers: {
@@ -161,7 +161,7 @@ function Interview() {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/api/interview/${sessionId}/pause`,
+        `${import.meta.env.VITE_API_URL}/api/interview/${sessionId}/pause`,
         {
           method: "PATCH",
           headers: {

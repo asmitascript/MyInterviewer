@@ -13,7 +13,7 @@ function InterviewHistory() {
     const fetchInterviewHistory = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8080/user/allinterviews",
+          `${import.meta.env.VITE_API_URL}/user/allinterviews`,
           {
             credentials: "include",
           }
@@ -51,7 +51,7 @@ function InterviewHistory() {
     try{
 
       const response = await fetch(
-        `http://localhost:8080/api/interview/${sessionId}/resume`,
+        `${import.meta.env.VITE_API_URL}/api/interview/${sessionId}/resume`,
         {
           method: "PATCH",
           credentials: "include"
@@ -87,7 +87,7 @@ function InterviewHistory() {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/api/interview/${sessionId}/delete`,
+        `${import.meta.env.VITE_API_URL}/api/interview/${sessionId}/delete`,
         {
           method: "DELETE",
           credentials: "include",

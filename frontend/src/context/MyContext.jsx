@@ -15,7 +15,8 @@ export function MyProvider({ children }) {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch("http://localhost:8080/auth/me", {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/auth/me`, {
           credentials: "include",
         });
 

@@ -18,7 +18,7 @@ function Feedback() {
     const getFeedback = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/interview/${sessionId}/feedback`,
+          `${import.meta.env.VITE_API_URL}/api/interview/${sessionId}/feedback`,
           {
             credentials: "include",
           }

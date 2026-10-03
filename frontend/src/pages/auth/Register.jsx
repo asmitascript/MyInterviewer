@@ -39,7 +39,7 @@ const Register = () => {
             password,
         });
       const response = await fetch(
-        "http://localhost:8080/auth/register",
+        `${import.meta.env.VITE_API_URL}/auth/register`,
         {
           method: "POST",
           headers: {
@@ -62,10 +62,10 @@ const Register = () => {
             const validationError = data.errors[0];
 
             const messages = {
-            firstName: "First name must be between 3 and 20 characters.",
-            lastName: "Last name must be between 3 and 20 characters.",
-            email: "Please enter a valid email address.",
-            password: "Password must be between 8 and 72 characters.",
+                firstName: "First name must be between 3 and 20 characters.",
+                lastName: "Last name must be between 3 and 20 characters.",
+                email: "Please enter a valid email address.",
+                password: "Password must be between 8 and 72 characters.",
             };
 
             throw new Error(

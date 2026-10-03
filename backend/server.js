@@ -18,7 +18,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL,
     credentials: true,
 }));
 app.use(express.json());
@@ -54,7 +54,16 @@ const connectDB = async () => {
   }
 };
 
-  app.listen(PORT, () => {
-    connectDB();
-    console.log(`Server is listening on port ${PORT}`);
-  });
+const startServer = async () => {
+  try {
+    await connectDB();
+
+    app.listen(PORT, () => {
+      console.log(`Server is listening on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error("Server startup failed:", err);
+  }
+};
+
+startServer();

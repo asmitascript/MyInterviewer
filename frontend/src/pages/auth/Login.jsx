@@ -39,7 +39,7 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:8080/auth/login",
+        `${import.meta.env.VITE_API_URL}/auth/login`,
         {
           method: "POST",
           headers: {
@@ -147,7 +147,7 @@ const Login = () => {
 
         <div className="auth-footer">
           Don't have an account?{" "}
-          <Link to="/register">
+          <Link to="/auth/register">
             Create Account
           </Link>
         </div>
