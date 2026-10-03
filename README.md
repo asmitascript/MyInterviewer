@@ -451,7 +451,7 @@ This project is helping me gain practical experience with:
 ![Landing Page](./screenshots/LandPage2.png)
 
 ### Interview History
-![Interview History](./screenshots/History.png)
+![Interview History](./screenshots/HistoryPage.png)
 
 ### AI Interview
 ![AI Interview](./screenshots/InterviewPage.png)
