@@ -444,18 +444,25 @@ This project is helping me gain practical experience with:
 
 ---
 
-# 📸 Screenshots
+## Screenshots
 
-> Screenshots will be added as the application UI reaches a more finalized state.
+### Landing Page
+![Landing Page](./screenshots/LandPage.png)
+![Landing Page](./screenshots/LandPage2.png)
 
-Suggested screenshots:
+### Interview History
+![Interview History](./screenshots/History.png)
 
-* Landing page
-* Interview configuration
-* Interview screen
-* Final feedback
-* User dashboard
-* Interview history
+### AI Interview
+![AI Interview](./screenshots/InterviewPage.png)
+
+### Dashboard
+![Dashboard](./screenshots/Dashboard.png)
+
+### Interview Feedback
+![Interview Feedback](./screenshots/FeedbackPage.png)
+![Interview Feedback](./screenshots/FeedbackPage2.png)
+![Interview Feedback](./screenshots/FeedbackPage3.png)
 
 ---
 
