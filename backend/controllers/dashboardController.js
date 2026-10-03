@@ -13,33 +13,30 @@ export const getDashboard = async (req, res) => {
 
     console.log("Dashboard Interviews:", interviews.length);
 
-    // if (interviews.length === 0) {
-    //   return res.status(404).json({
-    //     success: false,
-    //     message: "No completed interviews found",
-    //   });
-    // }
+    // No completed interviews
     if (interviews.length === 0) {
       return res.status(200).json({
         success: true,
         dashboard: {
           firstName: req.user.firstName,
           lastName: req.user.lastName,
+
           totalInterviews: 0,
           averageScore: null,
           bestScore: null,
           latestScore: null,
+
           performance: [],
           strengths: [],
           improvements: [],
+
+          interviewTypes: {},
+          latestInterview: null,
         },
       });
     }
 
-    // -------------------------
-    // Statistics
-    // -------------------------
-
+    // Scores
     const scores = interviews.map(
       (interview) => interview.finalFeedback?.overallScore ?? 0
     );
@@ -53,56 +50,66 @@ export const getDashboard = async (req, res) => {
 
     const latestScore = scores[scores.length - 1];
 
-    // -------------------------
-    // Performance Chart
-    // -------------------------
-
+    // Performance history
     const performance = interviews.map((interview, index) => ({
       interview: index + 1,
       score: interview.finalFeedback?.overallScore ?? 0,
       date: interview.createdAt,
     }));
 
-    // -------------------------
     // Strengths
-    // -------------------------
-
     const strengths = interviews.flatMap(
       (interview) => interview.finalFeedback?.strengths || []
     );
 
-    // -------------------------
-    // Improvements
-    // -------------------------
-
+    // Areas for improvement
     const improvements = interviews.flatMap(
       (interview) => interview.finalFeedback?.improvements || []
     );
 
-    res.json({
-      success: true,
+    // Interview type distribution
+    const interviewTypes = {};
 
+    interviews.forEach((interview) => {
+      const type = interview.interviewType;
+
+      if (type) {
+        interviewTypes[type] = (interviewTypes[type] || 0) + 1;
+      }
+    });
+
+    // Latest interview
+    const latestInterview = interviews[interviews.length - 1];
+
+    const latestInterviewData = {
+      role: latestInterview.role,
+      interviewType: latestInterview.interviewType,
+      difficulty: latestInterview.difficulty,
+      experience: latestInterview.experience,
+      score: latestInterview.finalFeedback?.overallScore ?? 0,
+      date: latestInterview.createdAt,
+    };
+
+    // Send dashboard data
+    res.status(200).json({
+      success: true,
       dashboard: {
         firstName: req.user.firstName,
-
         lastName: req.user.lastName,
 
         totalInterviews,
-
         averageScore: Number(averageScore.toFixed(1)),
-
         bestScore,
-
         latestScore,
 
         performance,
-
         strengths,
-
         improvements,
+
+        interviewTypes,
+        latestInterview: latestInterviewData,
       },
     });
-
   } catch (error) {
     console.error("DASHBOARD ERROR:", error);
 
