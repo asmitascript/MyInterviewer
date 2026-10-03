@@ -21,8 +21,25 @@ function Footer() {
                 <h2>Product</h2>
 
                 <ul>
-                    <li>Features</li>
-                    <li>How It Works</li>
+                    <li
+                        onClick={() =>
+                            document.getElementById("features")?.scrollIntoView({
+                            behavior: "smooth",
+                            })
+                        }
+                    >
+                    Features
+                    </li>
+
+                    <li
+                        onClick={() =>
+                            document.getElementById("how-it-works")?.scrollIntoView({
+                            behavior: "smooth",
+                            })
+                        }
+                    >
+                    How It Works
+                    </li>
                 </ul>
             </div>
 

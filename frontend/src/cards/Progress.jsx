@@ -26,7 +26,7 @@ function Progress() {
   ];
 
   return (
-    <div>
+    <div id="how-it-works">
       <div className="head-line">
         <p>
           HOW IT WORKS
