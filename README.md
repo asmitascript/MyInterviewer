@@ -1,65 +1,54 @@
-# 🤖 MyInterviewer
+# MyInterviewer
 
-> An AI-powered interview practice platform that simulates real interview sessions and provides personalized performance feedback.
+MyInterviewer is an AI-powered interview practice platform designed to simulate structured technical, HR, and behavioral interviews. It generates interview questions, analyzes candidate responses, provides follow-up questions when required, and generates a final performance report.
 
-**MyInterviewer** is a full-stack web application designed to help students and job seekers practice interviews in a structured, realistic environment.
 
-Users can configure an interview based on their **role, experience level, difficulty, and interview type**, answer AI-generated questions, and receive an AI-powered evaluation of their performance at the end of the session.
+## Features
 
----
-
-## ✨ Features
-
-### 🎯 Customizable Interviews
-
-Users can configure their interview based on:
-
-* **Role** — the position they want to practice for
-* **Experience Level** — Fresher, Junior, Mid, or Senior
-* **Difficulty** — Easy, Medium, or Hard
-* **Interview Type** — Technical, HR, or Behavioral
-
-### 🤖 AI-Powered Question Generation
-
-Interview questions are generated using the **Google Gemini API**, allowing the interview to be tailored to the selected role and interview configuration.
-
-### 🧠 AI Answer Evaluation
-
-Submitted answers are analyzed by the AI to evaluate the candidate's response and provide meaningful feedback.
-
-### 📊 Final Performance Report
-
-At the end of an interview, the platform generates an overall evaluation containing:
-
-* Overall Score
-* Technical Score
-* Communication Score
-* Grammar Score
-* Strengths
-* Areas for Improvement
-* Overall Summary
-* Suggested Preparation Topics
-
-### 📝 Interview History
-
-Completed interviews are stored so users can review their previous interview sessions and feedback.
-
-### 📈 User Dashboard
-
-The application includes a dedicated user area for accessing:
-
-* Dashboard
-* Interview History
-* Performance-related information
-* User settings
-
-### 🔐 User-Based Data
-
-Interview sessions are associated with individual users so that interview history and performance data can be separated between users.
+- User registration and authentication
+- AI-generated interview questions
+- Technical, HR, and behavioral interview modes
+- Configurable interview difficulty
+- AI-based answer analysis and scoring
+- Context-aware follow-up questions
+- Final interview performance feedback
+- User Dashboard, Interview history and session management
+- Pause and resume functionality
+- Protected routes and user-specific interview data
 
 ---
 
-## 🔄 How It Works
+
+## Tech Stack
+
+### Frontend
+- React
+- React Router
+- CSS
+
+### Backend
+- Node.js
+- Express.js
+- REST APIs
+
+### Database
+- MongoDB
+- Mongoose
+
+### AI
+- Google Gemini API
+
+### Authentication
+- JSON Web Tokens (JWT)
+- HTTP-only Cookies
+
+### Development Tools
+- Git
+- GitHub
+- Visual Studio Code
+
+
+## How It Works
 
 ```text
                  ┌──────────────────────┐
@@ -149,346 +138,191 @@ Interview sessions are associated with individual users so that interview histor
 
 ---
 
-## 🏗️ Project Architecture
 
-The application follows a client-server architecture.
+## Interview Workflow
+
+1. The candidate selects the interview role, experience level, difficulty, and interview type.
+2. The system generates an interview question using the Gemini API.
+3. The candidate submits an answer.
+4. The system analyzes the response for relevance, quality, and completeness.
+5. Based on the analysis, the system either generates the next question or asks a follow-up question.
+6. After the interview is completed, the system generates a final performance report with scores, strengths, areas for improvement, and preparation suggestions.
+
+
+## Project Structure
+
 
 ```text
 MyInterviewer/
 │
 ├── frontend/
+│   ├── .env.example
+|   |
+|   |
 │   ├── src/
+│   │   ├── api/
+│   │   |   └── interviewApi.js
+|   |   |
 │   │   ├── components/
+│   │   |   └── FeatureCard.jsx
+│   │   |   └── Features.jsx
+│   │   |   └── interviewDemoCard.jsx
+│   │   |   └── Progress.jsx
+│   │   |   └── ProgressCard.js
+|   |   |
+│   │   ├── components/
+│   │   |   └── Footer.jsx
+│   │   |   └── MainFooter.jsx
+│   │   |   └── Navbar.jsx
+|   |   |
+│   │   ├── context/
+│   │   |   └── MyContext.jsx
+|   |   |
+│   │   ├── interview/
+│   │   |   └── Feedback.jsx
+│   │   |   └── interview.jsx
+│   │   |   └── interviewSetup.jsx
+|   |   |
 │   │   ├── pages/
-│   │   │   ├── interview/
+│   │   │   ├── auth/
+|   |   |   |    └── Login.jsx
+|   |   |   |    └── Register.jsx
 │   │   │   └── user/
-│   │   │       ├── User.jsx
-│   │   │       ├── Dashboard.jsx
-│   │   │       └── InterviewHistory.jsx
+|   |   |   |    ├── dashboard/
+|   |   |   |    ├── interviewhistory/
+|   |   |   |    ├── settings/
+│   │   │   |    └── User.jsx
+│   │   |   └── Landpage.jsx
 │   │   └── ...
 │   └── ...
 │
 └── backend/
     ├── controllers/
+    │   └── authController.js
+    │   └── dashboardController.js
     │   └── interviewController.js
+    │   └── userController.js
     │
+    ├── middlewares/
+    │   └── authMiddleware.js
+    │   └── validationMiddleware.js
     ├── models/
     │   ├── interviewSession.js
     │   ├── response.js
-    │   └── ...
+    │   └── user.js
     │
     ├── routes/
+    │   └── authRoutes.js
     │   └── interviewRoutes.js
+    │   └── userRoutes.js
     │
-    ├── ...
+    ├── utils/
+    |   └── prompts
+    |   |    └── questionPrompt.js
+    │   |   └── analysisPrompt.js
+    │   |   └── followupPrompt.js
+    │   |    └── finalFeedbackPrompt.js
+    |   └── generateQuestions.js
+    │   └── analyseAnswers.js
+    │   └── generateFollowups.js
+    │   └── generateFinalFeedback.js
+    |
+    ├── validations/
+    │   └── authValidation.js
+    │   └── interviewValidation.js
+    |
+    ├── env.example
+    |
+    |
     └── server.js
 ```
 
-> The structure may evolve as authentication, user management, and additional dashboard functionality are implemented.
+> The structure may evolve as extra features are implemented.
 
 ---
 
-# 🧩 Core Functionality
 
-## 1. Interview Configuration
+## AI Integration
 
-When starting an interview, the client sends the interview configuration to the backend.
+The Gemini API is used to provide the core AI functionality of MyInterviewer.
 
-Example:
+- Generates interview questions based on the selected interview configuration
+- Analyzes candidate responses
+- Determines whether a follow-up question is required
+- Generates context-aware follow-up questions
+- Produces a final interview performance report
 
-```json
-{
-  "userId": "user-id",
-  "role": "Software Engineer",
-  "experience": "fresher",
-  "difficulty": "medium",
-  "interviewType": "Technical"
-}
+
+## Authentication and Security
+
+MyInterviewer implements authentication and authorization to protect user accounts and interview data.
+
+- Passwords are securely hashed before being stored.
+- JWT-based authentication is used for user sessions.
+- Authentication tokens are stored using HTTP-only cookies.
+- Protected routes require user authentication.
+- Users can access only their own interview sessions and data.
+- Environment variables are used to protect sensitive configuration and API credentials.
+- CORS is configured to control cross-origin requests.
+
+
+## Setup and Installation
+
+### Prerequisites
+
+- Node.js
+- MongoDB
+- Gemini API key
+
+
+### Installation
+
+1. Clone the repository.
+2. Navigate to the frontend directory and install the dependencies.
+3. Navigate to the backend directory and install the dependencies.
+4. Create the required environment variables.
+5. Start the backend server.
+6. Start the frontend development server.
+
+The application can then be accessed through the local frontend URL.
+
+
+## Environment Variables
+
+The project includes `.env.example` files that provide the required environment variable structure.
+
+1. Create a `.env` file based on the provided `.env.example`.
+2. Add the required database, authentication, and Gemini API credentials.
+3. Do not commit the `.env` file or expose sensitive credentials.
+
+
+## Running the Application
+
+Start the backend server:
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+Start the frontend server in different terminal:
+
+```bash
+cd frontend
+npm install
+npm run dev
 ```
 
-The backend creates a new interview session based on these parameters.
-
----
-
-## 2. Interview Session
-
-Each interview session maintains information such as:
-
-* User
-* Role
-* Experience level
-* Difficulty
-* Interview type
-* Current question
-* User responses
-* Session status
-* Final feedback
-
-The session progresses question by question until the interview is completed.
-
----
-
-## 3. Answer Submission
-
-After receiving a question, the user submits their answer.
-
-The answer is associated with the current interview session and processed by the backend.
-
-The interview then continues with the next question.
-
----
-
-## 4. AI Evaluation
-
-The application uses the Gemini API to analyze the interview and generate meaningful feedback.
-
-The final evaluation is structured into multiple categories:
-
-```text
-Overall Score
-├── Technical Score
-├── Communication Score
-└── Grammar Score
-
-Additional Feedback
-├── Strengths
-├── Improvements
-├── Summary
-└── Suggested Preparation
-```
-
-This makes the feedback more useful than simply providing a single score.
-
----
-
-# 📊 Dashboard & Interview History
-
-The user dashboard is designed to provide a centralized view of interview activity.
-
-The application retrieves completed interviews associated with the user and displays information such as:
-
-* Interview role
-* Experience level
-* Difficulty
-* Interview type
-* Number of questions
-* Overall score
-* Interview date
-* Final feedback
-
-The **Interview History** section allows users to revisit their previous interview performances.
-
----
-
-# 🔌 API Endpoints
-
-The backend exposes REST API endpoints for managing interview sessions.
-
-### Start Interview
-
-```http
-POST /api/interview/start
-```
-
-Creates a new interview session.
-
-### Submit Answer
-
-```http
-POST /api/interview/:sessionId/answer
-```
-
-Submits an answer for the current interview question.
-
-### Get Interview
-
-```http
-GET /api/interview/:sessionId
-```
-
-Retrieves the interview session and its current state.
-
-### Get Interview Feedback
-
-```http
-GET /api/interview/:sessionId/feedback
-```
-
-Retrieves the final feedback generated for a completed interview.
-
-### Get All User Feedback
-
-```http
-GET /api/interview/:userId/allfeedback
-```
-
-Retrieves completed interview feedback associated with a user for the interview history/dashboard.
-
----
-
-# 🗄️ Database
-
-MongoDB is used to store interview-related data.
-
-The application uses **Mongoose** for schema definition and database interaction.
-
-### Interview Session
-
-An interview session stores information including:
-
-```text
-userId
-role
-experience
-difficulty
-interviewType
-questions / responses
-currentQuestionNumber
-status
-finalFeedback
-createdAt
-```
-
-### Response
-
-Individual interview responses are stored with their associated question and answer information.
-
-### Final Feedback
-
-The final AI-generated evaluation contains:
-
-```text
-overallScore
-technicalScore
-communicationScore
-grammarScore
-strengths[]
-improvements[]
-summary
-suggestedPreparation[]
-```
-
----
-
-# 🤖 Gemini Integration
-
-Google Gemini is used as the AI layer of the application.
-
-The AI is responsible for tasks such as:
-
-* Generating interview questions
-* Processing candidate responses
-* Evaluating interview performance
-* Producing structured final feedback
-
-The backend communicates with the Gemini API rather than exposing AI credentials directly to the frontend.
-
----
-
-# 🔐 Authentication & Security
-
-> 🚧 **Authentication is currently under development.**
-
-The project is being structured to support proper user authentication and protected user-specific resources.
-
-Planned authentication functionality includes:
-
-* User registration
-* Email and password authentication
-* Password hashing with bcrypt
-* JWT-based authentication
-* Protected routes
-* Email verification
-* Password reset
-* Rate limiting
-* Secure cookie-based authentication
-
-Authentication will replace the current development-stage `userId` based approach with a proper user account system.
-
----
-
-# ⚙️ Installation
-
-## Prerequisites
-
-Make sure you have the following installed:
-
-* Node.js
-* npm
-* MongoDB / MongoDB Atlas account
-* Gemini API key
-* Git
-
----
-
-## 1. Clone the Repository
+## Clone the Repository
 
 ```bash
 git clone https://github.com/your-username/MyInterviewer.git
 cd MyInterviewer
 ```
-
 ---
 
-## 2. Install Backend Dependencies
 
-```bash
-cd backend
-npm install
-```
-
----
-
-## 3. Configure Environment Variables
-
-Create a `.env` file inside the backend directory.
-
-```env
-PORT=8080
-MONGO_URI=your_mongodb_connection_string
-GEMINI_API_KEY=your_gemini_api_key
-```
-
-> Never commit your `.env` file or expose your API keys publicly.
-
----
-
-## 4. Start the Backend
-
-```bash
-npm start
-```
-
-The backend will run on:
-
-```text
-http://localhost:8080
-```
-
----
-
-## 5. Install Frontend Dependencies
-
-Open another terminal:
-
-```bash
-cd frontend
-npm install
-```
-
----
-
-## 6. Start the Frontend
-
-```bash
-npm run dev
-```
-
-The frontend will then be available through the local development server.
-
----
-
-# 🚀 Usage
+# Usage
 
 1. Open the application.
 2. Configure an interview.
@@ -504,13 +338,14 @@ The frontend will then be available through the local development server.
 7. Continue through the interview.
 8. Complete the interview session.
 9. Review the AI-generated performance report.
-10. Revisit previous interviews through the dashboard/history section.
+10. Revisit previous interviews through the interviewhistory section.
 
 ---
 
+
 # 📌 Current Development Status
 
-### ✅ Implemented
+### Implemented
 
 * [x] Interview configuration
 * [x] Interview session creation
@@ -547,7 +382,7 @@ The frontend will then be available through the local development server.
 * [ ] Duration based interview sessions
 * [ ] User settings
 
-### 🔮 Planned
+### Planned
 
 * [ ] Email verification
 * [ ] Password reset
@@ -563,7 +398,7 @@ The frontend will then be available through the local development server.
 
 ---
 
-# 🎯 Future Vision
+# Future Vision
 
 The goal of AI Interviewer is to evolve from a simple interview-practice application into a **personalized AI interview preparation platform**.
 
@@ -589,7 +424,7 @@ Better Future Interviews
 
 ---
 
-# 🧠 What I Learned
+# What I Learned
 
 This project is helping me gain practical experience with:
 
@@ -624,37 +459,6 @@ Suggested screenshots:
 
 ---
 
-# 🗺️ Development Roadmap
-
-```text
-Interview Engine
-      │
-      ├── AI Questions              ✅
-      ├── Answer Submission         ✅
-      ├── Interview Completion      ✅
-      └── AI Feedback               ✅
-                │
-                ▼
-        User Management
-                │
-                ├── User Schema     ✅
-                ├── Authentication  ✅
-                └── Protected APIs  ✅
-                │
-                ▼
-          User Dashboard
-                │
-                ├── History         ✅
-                ├── Analytics       ✅
-                └── Performance     ✅
-                │
-                ▼
-          AI Improvements
-                │
-                ├── Speech-to-Text  🔮
-                ├── Voice Interview 🔮
-                └── Personalization 🔮
-```
 
 ---
 
@@ -689,7 +493,7 @@ A formal open-source license may be added in a future release.
 
 ---
 
-# 👨‍💻 Author
+# Author
 
 **Asmita Chowdhury**
 
