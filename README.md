@@ -101,43 +101,6 @@ MyInterviewer is an AI-powered interview practice platform designed to simulate 
                  └──────────────────────┘
 ```
 
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-
-* React
-* JavaScript
-* HTML
-* CSS
-* React Router
-
-### Backend
-
-* Node.js
-* Express.js
-* REST API
-* Mongoose
-
-### Database
-
-* MongoDB
-* MongoDB Atlas
-
-### AI
-
-* Google Gemini API
-
-### Development Tools
-
-* Git
-* GitHub
-* Visual Studio Code
-* npm
-
----
-
 
 ## Interview Workflow
 
@@ -379,6 +342,8 @@ cd MyInterviewer
 
 ### 🚧 In Progress
 
+* [ ] Speech-to-text interview answers
+* [ ] Voice-based interview interaction
 * [ ] Duration based interview sessions
 * [ ] User settings
 
@@ -386,8 +351,6 @@ cd MyInterviewer
 
 * [ ] Email verification
 * [ ] Password reset
-* [ ] Speech-to-text interview answers
-* [ ] Voice-based interview interaction
 * [ ] More advanced performance analytics
 * [ ] Personalized preparation recommendations
 * [ ] Interview performance trends
